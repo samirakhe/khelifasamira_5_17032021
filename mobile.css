@@ -1,0 +1,13 @@
+.bloc_page
+{
+    max-width: 1253px;
+}
+.peluche
+{
+    width: 100%;
+}
+.menu_footer
+{
+    flex-direction: column;
+    text-align: center;
+}

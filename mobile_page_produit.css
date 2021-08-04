@@ -1,0 +1,50 @@
+.bloc_page
+{
+    max-width: 1253px;
+}
+.peluche
+{
+    border: dotted 5px #dededa;
+    text-align: center;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin:30px auto 30px auto;
+    background-color:#f3e9f1;
+}
+.info_produit
+{
+    font-size: 17px;
+    text-align: center;
+    padding:0px 20px 0px 20px;
+}
+.color
+{
+    justify-content: center;
+}
+button
+{
+    font-family: 'montserrat_alternatesregular';
+    background-color: white;
+    font-size: 17px;
+    padding: 10px 15px;
+    border: solid 2px #c37865;
+    box-shadow: black;
+    box-shadow: 5px 3px 5px #8a8a8a;
+    scale: 0;
+    cursor: pointer;
+    position: relative;
+    margin-top:30px;
+}
+.image_produit
+{
+    width: 100%;
+    position: relative;
+    margin:0px;
+}
+.menu_footer
+{
+    flex-direction: column;
+    text-align: center;
+}
+

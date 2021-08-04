@@ -1,0 +1,191 @@
+@font-face {
+    font-family: 'wurmics_bravuraregular';
+    src: url('wurmics_bravura.woff2') format('woff2'),
+         url('wurmics_bravura.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'montserrat_alternatesregular';
+    src: url('montserratalternates-regular.woff2') format('woff2'),
+         url('montserratalternates-regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+body
+{
+    font-family: 'montserrat_alternatesregular';
+    font-weight: bold;
+}
+.bloc_page
+{
+	max-width: 1440px;
+	margin:auto;
+}
+header, .footer
+{
+    background-color:#f3e9f1;
+    padding-bottom: 20px;
+
+}
+.top_bar
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding:10px;
+    background:linear-gradient(#cb7c51,#f3e9f1);
+}
+.cart, .account
+{
+    font-size: 25px;
+    margin-right:15px;
+    color:#7948d8;
+    cursor: pointer;
+}
+.img_logo
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:30px;
+    width: 240px;
+    height: auto;
+
+}
+h1
+{
+    text-align: center;
+    font-family: 'wurmics_bravuraregular';
+    font-size: 25px;
+}
+h1{
+    font-size: 45px;
+    text-decoration: underline;
+}
+
+.image_produit
+{
+    margin:10px;
+    cursor: pointer;
+    
+}
+.image_produit:hover
+{
+    transform:none;
+}
+.container
+{
+    border: dotted 5px #dededa;
+    text-align: center;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    background-color:#f3e9f1;
+    position: relative;
+    margin:30px auto 30px auto;
+}
+.container:hover
+{
+    background-color:none;
+}
+
+.info_produit
+{
+    position: relative;
+    font-size: 17px;
+    text-align: justify;
+    padding:0px 20px 0px 20px;
+}
+.price
+{
+    font-size: 25px;
+    font-weight: bolder;
+}
+.color
+{
+    display: flex;
+    justify-content: start;
+    flex-direction: row;
+}
+.tan
+{
+    width: 30px;
+    height: 30px;
+    background-color:#d2b48c;
+    margin-right:10px;
+    border: solid 1px black;
+    cursor: pointer;
+}
+.chocolate
+{
+    width: 30px;
+    height: 30px;
+    background-color:#5e4a31;
+    margin-right:10px;
+    border: solid 1px black;
+    cursor: pointer;
+
+}
+.black
+{
+    width: 30px;
+    height: 30px;
+    background-color:#000000;
+    margin-right:10px;
+    border: solid 1px black;
+    cursor: pointer;
+
+}
+
+.white
+{
+    width: 30px;
+    height: 30px;
+    background-color:#ffffff;
+    margin-right:10px;
+    border: solid 1px black;
+    cursor: pointer;
+
+}
+.tan:hover, .chocolate:hover, .black:hover, .white:hover
+{
+    transform: scale(1.05);
+    transition: transform 300ms;
+}
+button
+{
+    font-family: 'montserrat_alternatesregular';
+    background-color: white;
+    font-size: 17px;
+    padding: 10px 15px;
+    border: solid 2px #c37865;
+    box-shadow: black;
+    box-shadow: 5px 3px 5px #8a8a8a;
+    scale: 0;
+    cursor: pointer;
+    position: absolute;
+    bottom:15px;
+}
+button:hover
+{
+    transform: scale(1.05);
+    transition: all 200ms;
+    font-weight: bold;
+    box-shadow: 5px 3px 5px #252525;
+}
+
+.menu_footer
+{
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+}
+h3
+{
+    margin-left:10px;
+    margin-right: 10px;
+}
