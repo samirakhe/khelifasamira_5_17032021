@@ -1,12 +1,5 @@
-//Création de l'objet :
 
-class Nounours 
-{
-    constructor (price)
-        {this.price = price}
-}
-
-//Création de la fonction qui nous permettra de récupérer les données
+//Création de la fonction qui nous permettra de récupérer les données des objets
 async function test (){
     const response = await fetch ('http://localhost:3000/api/teddies');
     let data = await response.json();

@@ -99,6 +99,12 @@ h1{
     font-size: 17px;
     text-align: justify;
     padding:0px 20px 0px 20px;
+    display: flex;
+    flex-direction: column;
+}
+#alerte
+{
+    color:red;
 }
 .price
 {
@@ -107,55 +113,15 @@ h1{
 }
 .color
 {
-    display: flex;
-    justify-content: start;
-    flex-direction: row;
-}
-.tan
-{
-    width: 30px;
-    height: 30px;
-    background-color:#d2b48c;
-    margin-right:10px;
-    border: solid 1px black;
-    cursor: pointer;
-}
-.chocolate
-{
-    width: 30px;
-    height: 30px;
-    background-color:#5e4a31;
-    margin-right:10px;
-    border: solid 1px black;
-    cursor: pointer;
-
-}
-.black
-{
-    width: 30px;
-    height: 30px;
-    background-color:#000000;
-    margin-right:10px;
-    border: solid 1px black;
-    cursor: pointer;
-
+    font-size: 15px;
+    border: solid 2px #c37865;
+    font-family: 'montserrat_alternatesregular';
+    padding: 7px;
 }
 
-.white
-{
-    width: 30px;
-    height: 30px;
-    background-color:#ffffff;
-    margin-right:10px;
-    border: solid 1px black;
-    cursor: pointer;
 
-}
-.tan:hover, .chocolate:hover, .black:hover, .white:hover
-{
-    transform: scale(1.05);
-    transition: transform 300ms;
-}
+
+
 button
 {
     font-family: 'montserrat_alternatesregular';
@@ -169,6 +135,7 @@ button
     cursor: pointer;
     position: absolute;
     bottom:15px;
+    left:21px;
 }
 button:hover
 {

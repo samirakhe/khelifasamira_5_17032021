@@ -56,10 +56,42 @@ header, .footer
     height: auto;
 
 }
+table
+{
+    border-collapse: collapse;
+    width: 90%;
+    text-align: center;
+    margin: auto;
+    
+}
+.containerPanierVide {
+    background-color : red;
+}
+.validation
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 90%;
+    margin:70px auto;
+}
+td, th
+{
+    border: 1px solid black;
+    padding: 10px;
+}
+th
+{
+    color : #cb7c51;
+    font-weight: bold;
+}
 .section1, .section2
 {
+    
     border: solid 1px black;
-    padding : 15px;
+    width: 45%;
+    padding: 15px;
+  
 }
 .section2
 {
@@ -70,6 +102,8 @@ form
     text-align: left;
     font-size: 20px;
     line-height: 45px;
+    display: flex;
+    flex-direction: column;
 }
 .name_input, .prenom_input, .date_de_naissance_input, .email_input, .adresse_input, .cp_input, .ville_input
 {
@@ -133,8 +167,7 @@ h1{
     cursor: pointer;
     position: absolute;
     bottom:15px;
-    right:30px;
-    left:30px;
+    left:100px;
 }
 button:hover
 {
@@ -152,6 +185,5 @@ button:hover
 }
 h3
 {
-    margin-left:10px;
-    margin-right: 10px;
+   text-align: center;
 }

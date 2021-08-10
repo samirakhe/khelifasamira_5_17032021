@@ -1,4 +1,125 @@
-let container = document.querySelector('.container');
+/*function afficherProduits(){
+    let datas = localStorage.getItem('produits');
+    if (datas){
+        let produits = JSON.parse(datas);
+        let containerProduits = document.querySelector('.containerProduits');
+        for (const produit of produits) {
+            let divNomCouleur = document.createElement('div');
+            divNomCouleur.classList.add('divNomCouleur');
+            let nomProduit = document.createElement('p');
+            nomProduit.innerText = produit.name;
+            divNomCouleur.appendChild(nomProduit);
+            let couleurProduit = document.createElement('p');
+            couleurProduit.innerText = produit.selectedColor;
+            divNomCouleur.appendChild(couleurProduit);
+            let quantityProduit = document.createElement('p');
+            quantityProduit.innerText = produit.quantity;
+            quantityProduit.classList.add('quantity');
+            divNomCouleur.appendChild(quantityProduit);
+            containerProduits.appendChild(divNomCouleur);
+        }
+    }
+}
+afficherProduits();*/
+
+let produitEnregistresDansLeLocalStorage = JSON.parse(localStorage.getItem('produits'));
+console.log(produitEnregistresDansLeLocalStorage);
+produits = produitEnregistresDansLeLocalStorage;
+//selection de la classe ou je vais inhetcer mon html
+const positionsElement3 = document.querySelector('.containerProduitsPanier');
+//si le panier est vide : afficher le panier est vide
+let structureProduitPanier =  [];
+if (produits === null)
+{
+    const paniervide = `
+    <div class = "containerPanierVide">
+        <div>Le panier est vide</div>
+    </div>
+    `
+    let tableau = document.querySelector('.tableau');
+    tableau.innerHTML= paniervide;
+}else 
+{
+;
+
+    // si le panier n'est pas vide , afficher les produits dans le localstorage
+    let nbproduit = 0;
+    for (j = 0; j < produits.length; j++){
+        
+        nbproduit += produits[j].quantity;
+        structureProduitPanier =  structureProduitPanier + `<table class="tableau">
+   <tr>
+       <th class ="containerProduitsPanier">Produits</th>
+       <th>Quantité</th>
+       <th>Prix Unitaire</th>
+       <th>Options</th>
+   </tr>
+    <tr>
+        <td class="divNomCouleur">${produitEnregistresDansLeLocalStorage[j].name}</td>
+        <td class="quantity">${produitEnregistresDansLeLocalStorage[j].quantity}</td>
+        <td class="prix">${produitEnregistresDansLeLocalStorage[j].price}</td>
+        <td class="coloris">${produitEnregistresDansLeLocalStorage[j].selectedColor}</td>
+
+    </tr>
+
+</table>`;
+}
+
+if (j === produitEnregistresDansLeLocalStorage.length);{
+positionsElement3.innerHTML = structureProduitPanier;
+    }
+    console.log('je suis ici ' + nbproduit);
+}
+
+let bouton_commande = document.querySelector('button');
+
+
+bouton_commande.addEventListener('click', function(){
+//recuperer les donnees du formulaire
+let nom = document.querySelectorAll('#votrenom');
+
+console.log(nom.value);
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*</div>let container = document.querySelector('.container');
 
 
 // BLOC NOM ET PRENOM 
@@ -165,4 +286,4 @@ section2.appendChild(bouton_commande);
 
 
 
-console.log(container);
+console.log(container);*/
