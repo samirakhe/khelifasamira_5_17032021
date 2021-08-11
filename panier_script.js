@@ -26,7 +26,7 @@ let produitEnregistresDansLeLocalStorage = JSON.parse(localStorage.getItem('prod
 console.log(produitEnregistresDansLeLocalStorage);
 produits = produitEnregistresDansLeLocalStorage;
 //selection de la classe ou je vais inhetcer mon html
-const positionsElement3 = document.querySelector('.containerProduitsPanier');
+const positionsElement3 = document.querySelector('.tbody');
 //si le panier est vide : afficher le panier est vide
 let structureProduitPanier =  [];
 if (produits === null)
@@ -49,16 +49,8 @@ if (produits === null)
         
         nbproduit += produits[j].quantity;
         //structureProduitPanier =  structureProduitPanier 
-        structureProduitPanier = structureProduitPanier +  `<table class="tableau">
-        <thread>
-            <tr>
-                <th class ="containerProduitsPanier">Produits</th>
-                <th>Quantité</th>
-                <th>Prix Unitaire</th>
-                <th>Options</th>
-            </tr>
-        
-        </thread>
+        structureProduitPanier = structureProduitPanier +  `
+       
             <tr>
                 <td class="divNomCouleur">${produitEnregistresDansLeLocalStorage[j].name}</td>
                 <td class="quantity">${produitEnregistresDansLeLocalStorage[j].quantity}</td>
@@ -66,7 +58,7 @@ if (produits === null)
                 <td class="coloris">${produitEnregistresDansLeLocalStorage[j].selectedColor}</td>
 
             </tr>
-            </table>`;
+            `;
   
 }
 
@@ -81,55 +73,6 @@ positionsElement3.innerHTML = structureProduitPanier;
 //------------------------------------------------------------------------------------------
 //FORMULAIRE
 
-function afficherformulaire(){
-//selection element du DOM pour le positionnement du formulaire
-
-const positionElement4 = document.querySelector('.containerProduitsPanier');
-
-const structureformulaire = `
-    
-    <div class="validation">
-    <div class="section1">
-        <h3> Vos Coordonnées </h3>
-        <form>
-            <label for ="nom">Nom</label>
-            <input type="text" name="nom" id="votrenom" >
-
-            <label for ="prenom">Prénom</label>
-            <input type="text" name="prenom"  id="prenom"> 
-
-            <label for ="email">Email</label>
-            <input type="email" name="email"  id="email">
-
-            <label for ="date">Date de naissance</label>
-            <input type="date" name="date" label ="date de naissance" id="date" >
-
-            <label for ="adresse">Adresse</label>
-            <input type="text" name="adresse"  id="adresse"> 
-
-            <label for ="code postal">Code Postal</label>
-            <input type="number" name="code postal" id="cp" > 
-            <label for ="ville">Ville</label>
-
-            <input type="text" name="Ville" id="ville"> 
-        </form>
-    </div>
-
-    <div class="section2">
-        <h3> Récapitulatif de votre commande </h3>
-        <button name ="valider_la_commande" type="submit" class="bouton_commande"> Valider la commande et Payer</button>
-    </div>
-</div> `;
-
-//injection du HTML
-
-positionElement4.insertAdjacentHTML('afterend', structureformulaire);
-}
-
-//affichage du formulaire
-
-afficherformulaire();
-
 //selection du bouton
 
 let btn_envoyerleformulaire = document.querySelector('.bouton_commande');
@@ -140,23 +83,42 @@ btn_envoyerleformulaire.addEventListener('click',function(e){
     e.preventDefault;
 
     // mettre les valeurs du formulaire dans un objet
-
+validateName();
     const leformulaire = {
 
-        nom : localStorage.getItem('nom')
+        nom : document.querySelector('#votrenom').value,
+        prenom : document.querySelector('#prenom').value,
+        email : document.querySelector('#email').value,
+        date : document.querySelector('#date').value,
+        adresse : document.querySelector('#adresse').value,
+        code_postal : document.querySelector('#cp').value,
+        ville : document.querySelector('#ville').value
     }
     
     console.log(leformulaire);
 
-
-//récupération des valeurs pour les mettre dans le localstorage
-
-localStorage.setItem('nom', document.querySelector('#votrenom').value);
-console.log('nom', document.querySelector('#votrenom').value);
-
 } )
-//finir video 11min
 
+function validateName(){
+    let inputName = document.querySelector('#votrenom');
+    let valueName = inputName.value;
+    let errorName = document.querySelector('.error');
+    //trim permet de supprimer les espaces au extremités d'une chaine de caractères
+    if ( !valueName.trim()){
+        errorName.innerText = 'Veuillez remplir ce champ';
+        errorName.style.display = 'block';
+        inputName.value = '';// '' permet de vider le champs entierement
+        return false;
+    }
+    if (valueName.length < 2)
+    {
+        errorName.innerText = 'Votre nom est trop court';
+        errorName.style.display = 'block';
+        return false;
+    }
+    errorName.style.display = 'none';
+    return true;
+}
 
 
 
