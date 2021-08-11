@@ -40,29 +40,34 @@ if (produits === null)
     tableau.innerHTML= paniervide;
 }else 
 {
-;
 
     // si le panier n'est pas vide , afficher les produits dans le localstorage
     let nbproduit = 0;
+
+
     for (j = 0; j < produits.length; j++){
         
         nbproduit += produits[j].quantity;
-        structureProduitPanier =  structureProduitPanier + `<table class="tableau">
-   <tr>
-       <th class ="containerProduitsPanier">Produits</th>
-       <th>Quantité</th>
-       <th>Prix Unitaire</th>
-       <th>Options</th>
-   </tr>
-    <tr>
-        <td class="divNomCouleur">${produitEnregistresDansLeLocalStorage[j].name}</td>
-        <td class="quantity">${produitEnregistresDansLeLocalStorage[j].quantity}</td>
-        <td class="prix">${produitEnregistresDansLeLocalStorage[j].price}</td>
-        <td class="coloris">${produitEnregistresDansLeLocalStorage[j].selectedColor}</td>
+        //structureProduitPanier =  structureProduitPanier 
+        structureProduitPanier = structureProduitPanier +  `<table class="tableau">
+        <thread>
+            <tr>
+                <th class ="containerProduitsPanier">Produits</th>
+                <th>Quantité</th>
+                <th>Prix Unitaire</th>
+                <th>Options</th>
+            </tr>
+        
+        </thread>
+            <tr>
+                <td class="divNomCouleur">${produitEnregistresDansLeLocalStorage[j].name}</td>
+                <td class="quantity">${produitEnregistresDansLeLocalStorage[j].quantity}</td>
+                <td class="prix">${produitEnregistresDansLeLocalStorage[j].price}</td>
+                <td class="coloris">${produitEnregistresDansLeLocalStorage[j].selectedColor}</td>
 
-    </tr>
-
-</table>`;
+            </tr>
+            </table>`;
+  
 }
 
 if (j === produitEnregistresDansLeLocalStorage.length);{
@@ -71,15 +76,87 @@ positionsElement3.innerHTML = structureProduitPanier;
     console.log('je suis ici ' + nbproduit);
 }
 
-let bouton_commande = document.querySelector('button');
 
 
-bouton_commande.addEventListener('click', function(){
-//recuperer les donnees du formulaire
-let nom = document.querySelectorAll('#votrenom');
+//------------------------------------------------------------------------------------------
+//FORMULAIRE
 
-console.log(nom.value);
-})
+function afficherformulaire(){
+//selection element du DOM pour le positionnement du formulaire
+
+const positionElement4 = document.querySelector('.containerProduitsPanier');
+
+const structureformulaire = `
+    
+    <div class="validation">
+    <div class="section1">
+        <h3> Vos Coordonnées </h3>
+        <form>
+            <label for ="nom">Nom</label>
+            <input type="text" name="nom" id="votrenom" >
+
+            <label for ="prenom">Prénom</label>
+            <input type="text" name="prenom"  id="prenom"> 
+
+            <label for ="email">Email</label>
+            <input type="email" name="email"  id="email">
+
+            <label for ="date">Date de naissance</label>
+            <input type="date" name="date" label ="date de naissance" id="date" >
+
+            <label for ="adresse">Adresse</label>
+            <input type="text" name="adresse"  id="adresse"> 
+
+            <label for ="code postal">Code Postal</label>
+            <input type="number" name="code postal" id="cp" > 
+            <label for ="ville">Ville</label>
+
+            <input type="text" name="Ville" id="ville"> 
+        </form>
+    </div>
+
+    <div class="section2">
+        <h3> Récapitulatif de votre commande </h3>
+        <button name ="valider_la_commande" type="submit" class="bouton_commande"> Valider la commande et Payer</button>
+    </div>
+</div> `;
+
+//injection du HTML
+
+positionElement4.insertAdjacentHTML('afterend', structureformulaire);
+}
+
+//affichage du formulaire
+
+afficherformulaire();
+
+//selection du bouton
+
+let btn_envoyerleformulaire = document.querySelector('.bouton_commande');
+
+//adEvenetlistener
+
+btn_envoyerleformulaire.addEventListener('click',function(e){
+    e.preventDefault;
+
+    // mettre les valeurs du formulaire dans un objet
+
+    const leformulaire = {
+
+        nom : localStorage.getItem('nom')
+    }
+    
+    console.log(leformulaire);
+
+
+//récupération des valeurs pour les mettre dans le localstorage
+
+localStorage.setItem('nom', document.querySelector('#votrenom').value);
+console.log('nom', document.querySelector('#votrenom').value);
+
+} )
+//finir video 11min
+
 
 
 
