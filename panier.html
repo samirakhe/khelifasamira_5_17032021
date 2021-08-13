@@ -53,23 +53,26 @@
             <small class='error nom'></small>
 
             <label for ="prenom">Prénom</label>
-            <input type="text" name="prenom"  id="prenom" required> 
+            <input type="text" name="prenom"  id="prenom" minlength = "2" required >
+            <small class='error prenom'></small>
 
             <label for ="email">Email</label>
-            <input type="email" name="email"  id="email">
-
-            <label for ="date">Date de naissance</label>
-            <input type="date" name="date" label ="date de naissance" id="date" >
+            <input type="email" name="email"  id="email" minlength = "6" required>
+            <small class='error email'></small>
 
             <label for ="adresse">Adresse</label>
-            <input type="text" name="adresse"  id="adresse"> 
+            <input type="text" name="adresse"  id="adresse" minlength = "5" required> 
+            <small class='error adresse'></small>
 
             <label for ="code postal">Code Postal</label>
-            <input type="number" name="code_postal" id="cp" > 
-            <label for ="ville">Ville</label>
+            <input type="number" name="code_postal" id="cp" minlength = "5" required> 
+            <small class='error cp'></small>
 
-            <input type="text" name="Ville" id="ville"> 
-            <button name ="valider_la_commande" type="submit" class="bouton_commande"> Valider la commande et Payer</button>
+            <label for ="ville">Ville</label>
+            <input type="text" name="Ville" id="ville" minlength = "2"  required> 
+            <small class='error ville'></small>
+
+            <button name ="valider_la_commande" type="submit" class="bouton_commande" onclick="validerEmail();"> Valider la commande et Payer</button>
         </form>
     </div>
 
