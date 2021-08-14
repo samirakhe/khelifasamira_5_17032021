@@ -56,6 +56,7 @@ if (produits === null)
                 <td class="quantity">${produitLocalStorage[j].quantity}</td>
                 <td class="coloris">${produitLocalStorage[j].selectedColor}</td>
                 <td class="prix">${produitLocalStorage[j].price}</td>
+                <td class="soustotal"></td>
 
             </tr>
             `;
@@ -70,42 +71,18 @@ positionsElement.innerHTML = structureProduitPanier;
 
 //-------------------------------------------------TOTAL Prix produit----------------------------------------
 
+for (m = 0; m < produits.length; m++){
+    let quantité = produitLocalStorage[m].quantity;
+    let prixUnitaire = produitLocalStorage[m].price;
 
-// Déclaration d'une variable pour y mettre les prix present dans le panier
+    sousTotal = quantité * prixUnitaire;
 
-let sousTotalCalcul = [];
+    console.log(sousTotal);
 
-// Ensuite on va chercher les prix dans le panier
-
-for (let m = 0; m < produitLocalStorage[m].quantity.length; m++){
-    let prixSoustotal = produitLocalStorage[m].price;
-   
-
-    // Mettre à present les prix dans un tableau , donc dans la variable sousTotalCalcul
-
-    sousTotalCalcul.push(prixSousTotal);
-    console.log(sousTotalCalcul);
 }
 
 
-// additonner le tout avec reduce
-
-const reducer1 = (acc, cur) => acc + cur;
-const sousTotal = sousTotalCalcul.reduce(reducer1, 0);
-console.log('yo' + sousTotal);
-
-// le html du prix total :
-
-const afficherSousTotal = `<div class="sousTotal">Le sous total est : ${sousTotal}</div>`;
-//selection de la classe ou je vais injecter mon html
-const positionsElement3 = document.querySelector('.tfoot');
-positionsElement3.innerHTML = afficherSousTotal;
-
-
-
-
 //-------------------------------------------------TOTAL PANIER----------------------------------------
-
 
 // Déclaration d'une variable pour y mettre les prix present dans le panier
 

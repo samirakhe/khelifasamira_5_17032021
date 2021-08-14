@@ -118,6 +118,7 @@ function maPeluche(data) {
                     
                     localStorage.setItem('produits', JSON.stringify(panier))
                 }   
+                
                 window.location.href = 'panier.html';
             })
 };
