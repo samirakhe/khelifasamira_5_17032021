@@ -65,7 +65,19 @@ table
     
 }
 .containerPanierVide {
-    background-color : red;
+    border : 3px solid #d9a38a;
+    font-size : 15px;
+    font-family: 'wurmics_bravuraregular';
+    letter-spacing: 2px;
+    width: 30%;
+    text-align: center;
+    margin : auto;
+    padding:15px;
+}
+
+.containerPanierVide a
+{
+    color:#bd7479;
 }
 .validation
 {

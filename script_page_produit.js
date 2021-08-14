@@ -87,7 +87,7 @@ function maPeluche(data) {
             info_produit.appendChild(lien);
             button.addEventListener('click', function (e){ 
                 e.preventDefault();
-
+                
                let selectedColor = color.value;//variable pour la couleur choisi avec la valeur du menu deroulant
                 console.log(selectedColor);
                 if (!selectedColor){ // si différents de selectedcolor alors on affiche ce message
@@ -118,6 +118,7 @@ function maPeluche(data) {
                     
                     localStorage.setItem('produits', JSON.stringify(panier))
                 }   
+                window.location.href = 'panier.html';
             })
 };
 

@@ -22,18 +22,19 @@
 }
 afficherProduits();*/
 
-let produitEnregistresDansLeLocalStorage = JSON.parse(localStorage.getItem('produits'));
-console.log(produitEnregistresDansLeLocalStorage);
-produits = produitEnregistresDansLeLocalStorage;
-//selection de la classe ou je vais inhetcer mon html
-const positionsElement3 = document.querySelector('.tbody');
+let produitLocalStorage = JSON.parse(localStorage.getItem('produits'));
+console.log(produitLocalStorage);
+produits = produitLocalStorage;
+//selection de la classe ou je vais injecter mon html
+const positionsElement = document.querySelector('.tbody');
 //si le panier est vide : afficher le panier est vide
 let structureProduitPanier =  [];
 if (produits === null)
 {
     const paniervide = `
     <div class = "containerPanierVide">
-        <div>Le panier est vide</div>
+        <div>LE PANIER EST VIDE</div>
+        <a href="index.html">Retourner à la boutique</a>
     </div>
     `
     let tableau = document.querySelector('.tableau');
@@ -48,30 +49,114 @@ if (produits === null)
     for (j = 0; j < produits.length; j++){
         
         nbproduit += produits[j].quantity;
-        //structureProduitPanier =  structureProduitPanier 
         structureProduitPanier = structureProduitPanier +  `
        
             <tr>
-                <td class="divNomCouleur">${produitEnregistresDansLeLocalStorage[j].name}</td>
-                <td class="quantity">${produitEnregistresDansLeLocalStorage[j].quantity}</td>
-                <td class="prix">${produitEnregistresDansLeLocalStorage[j].price}</td>
-                <td class="coloris">${produitEnregistresDansLeLocalStorage[j].selectedColor}</td>
+                <td class="divNomCouleur">${produitLocalStorage[j].name}</td>
+                <td class="quantity">${produitLocalStorage[j].quantity}</td>
+                <td class="coloris">${produitLocalStorage[j].selectedColor}</td>
+                <td class="prix">${produitLocalStorage[j].price}</td>
 
             </tr>
             `;
   
 }
 
-if (j === produitEnregistresDansLeLocalStorage.length);{
-positionsElement3.innerHTML = structureProduitPanier;
+if (j === produitLocalStorage.length);{
+positionsElement.innerHTML = structureProduitPanier;
     }
     console.log('je suis ici ' + nbproduit);
 }
 
+//-------------------------------------------------TOTAL Prix produit----------------------------------------
 
 
-//------------------------------------------------------------------------------------------
-//FORMULAIRE
+// Déclaration d'une variable pour y mettre les prix present dans le panier
+
+let sousTotalCalcul = [];
+
+// Ensuite on va chercher les prix dans le panier
+
+for (let m = 0; m < produitLocalStorage[m].quantity.length; m++){
+    let prixSoustotal = produitLocalStorage[m].price;
+   
+
+    // Mettre à present les prix dans un tableau , donc dans la variable sousTotalCalcul
+
+    sousTotalCalcul.push(prixSousTotal);
+    console.log(sousTotalCalcul);
+}
+
+
+// additonner le tout avec reduce
+
+const reducer1 = (acc, cur) => acc + cur;
+const sousTotal = sousTotalCalcul.reduce(reducer1, 0);
+console.log('yo' + sousTotal);
+
+// le html du prix total :
+
+const afficherSousTotal = `<div class="sousTotal">Le sous total est : ${sousTotal}</div>`;
+//selection de la classe ou je vais injecter mon html
+const positionsElement3 = document.querySelector('.tfoot');
+positionsElement3.innerHTML = afficherSousTotal;
+
+
+
+
+//-------------------------------------------------TOTAL PANIER----------------------------------------
+
+
+// Déclaration d'une variable pour y mettre les prix present dans le panier
+
+let prixTotalCalcul = [];
+
+// Ensuite on va chercher les prix dans le panier
+
+for (let k = 0; k < produitLocalStorage.length; k++){
+    let prixProduitPanier = produitLocalStorage[k].price;
+   
+
+    // Mettre à present les prix dans un tableau , donc dans la variable prixTotalCalcul
+
+    prixTotalCalcul.push(prixProduitPanier);
+    console.log(prixTotalCalcul);
+}
+
+// additonner le tout avec reduce
+
+const reducer = (acc, cur) => acc + cur;
+const prixTotal = prixTotalCalcul.reduce(reducer);
+console.log(prixTotal);
+
+// le html du prix total :
+
+const afficherPrixTotal = `<div class="prixTotal">Le prix total est : ${prixTotal}</div>`;
+//selection de la classe ou je vais injecter mon html
+const positionsElement2 = document.querySelector('.tfoot');
+positionsElement2.innerHTML = afficherPrixTotal;
+
+
+//-----------------------------------VIDER LE PANIER-------------------------------------------------
+
+
+let btn_viderPanier = document.querySelector('.paniervide');
+
+//suppression de la key produit du localstorage
+
+btn_viderPanier.addEventListener('click', (e)=>{
+    e.preventDefault();
+    localStorage.removeItem('produits');
+    alert('Le panier a été vidé');
+    window.location.href = "panier.html";
+
+});
+
+
+
+
+//-----------------------------------------FORMULAIRE-------------------------------------------------
+
 
 //selection du bouton
 
