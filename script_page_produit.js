@@ -10,6 +10,7 @@ async function test() {
     `http://localhost:3000/api/teddies/${IdPeluche}`
   );
   let data = await response.json();
+  data.price = data.price/100;
   maPeluche(data);
   console.log(data); //on appelle la fonction de construction mapeluche et on y place data
 } //on récupère les données de chaque produit avec le suffixe `${}`
@@ -18,13 +19,9 @@ test();
 let body = document.querySelector("body");
 let lebody = document.createElement("div");
 lebody.classList.add("lebody");
-let retour = document.createElement("a");
-retour.href = "index.html";
-let button2 = document.createElement("button2");
-button2.innerText = "Retour à la page précédente";
 body.appendChild(lebody);
-lebody.appendChild(retour);
-retour.appendChild(button2);
+
+
 
 function maPeluche(data) {
   let container = document.querySelector(".container");
@@ -42,7 +39,7 @@ function maPeluche(data) {
   info_produit.appendChild(h1);
   let price = document.createElement("p");
   price.classList.add("price");
-  price.innerText = data.price + "€";
+  price.innerText = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(data.price);
   info_produit.appendChild(price);
   let description = document.createElement("p");
   description.classList.add("description");
@@ -73,6 +70,12 @@ function maPeluche(data) {
       alerte.innerText = "";
     }
   });
+
+  let choixQuantité = document.createElement('input');
+  choixQuantité.type = 'number';
+  choixQuantité.value = 1;
+  choixQuantité.min = 1;
+  info_produit.appendChild(choixQuantité);
   let lien = document.createElement("a");
   lien.href = "#";
   let button = document.createElement("button");
@@ -102,10 +105,10 @@ function maPeluche(data) {
       console.log(index);
       if (index >= 0) {
         let exist = panier[index];
-        exist.quantity = exist.quantity + 1;
+        exist.quantity = exist.quantity + choixQuantité.value;
         panier[index] = exist; //pour remplacer le produit qui a été incrémenter, passer de 1 à 2 3 4..
       } else {
-        produit.quantity = 1;
+        produit.quantity = choixQuantité.value;
         panier.push(produit); //rentre les données du produits (data)dans le tableau "panier"
       }
 

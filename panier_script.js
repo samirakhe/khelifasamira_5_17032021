@@ -1,14 +1,21 @@
-let produitLocalStorage = JSON.parse(localStorage.getItem("produits"));
-console.log(produitLocalStorage);
-produits = produitLocalStorage;
+function formatPrix (prix){
+  return  new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(prix);
+}
+
+let produits = JSON.parse(localStorage.getItem("produits"));
+if (!produits){
+  produits = [];
+}
+console.log(produits);
+
 
 
 
 //-------------------------------------------------CALCUL SOUS TOTAL ---------------------------------------
 let sousTotalCalcul = [];
 for (m = 0; m < produits.length; m++) {
-  let quantité = produitLocalStorage[m].quantity;
-  let prixUnitaire = produitLocalStorage[m].price;
+  let quantité = produits[m].quantity;
+  let prixUnitaire = produits[m].price;
 
   sousTotal = quantité * prixUnitaire;
   sousTotalCalcul.push(sousTotal);
@@ -28,7 +35,7 @@ const positionsElement = document.querySelector(".tbody");
 
 //si le panier est vide : afficher le panier est vide
 let structureProduitPanier = [];
-if (produits === null) {
+if (!produits || produits.length === 0) {
   const paniervide = `
     <div class = "containerPanierVide">
         <div>LE PANIER EST VIDE</div>
@@ -43,37 +50,38 @@ if (produits === null) {
 
   for (j = 0; j < produits.length; j++) {
     nbproduit += produits[j].quantity;
+
     structureProduitPanier = structureProduitPanier + `
        
             <tr>
-                <td class="divNomCouleur">${produitLocalStorage[j].name}</td>
-                <td class="coloris">${produitLocalStorage[j].selectedColor}</td>
-                <td class="quantity">${produitLocalStorage[j].quantity}</td>
-                <td class="prix">${produitLocalStorage[j].price}</td>
-                <td class="soustotal">${produitLocalStorage[j].sousTotal}</td>
+                <td class="divNomCouleur">${produits[j].name}</td>
+                <td class="coloris">${produits[j].selectedColor}</td>
+                <td class="quantity">${produits[j].quantity}</td>
+                <td class="prix">${formatPrix(produits[j].price)}</td>
+                <td class="soustotal">${formatPrix(produits[j].price*produits[j].quantity)}</td>
+                <td ><button class='delete' id=${j}>Supprimer ce produit</button></td> <!-- On passe la position du produit dans le tableau de produits afin de l'utiliser pour supprimer le produit -->
 
             </tr>`;
   }
+positionsElement.innerHTML = structureProduitPanier;
 
-  if (j === produitLocalStorage.length);
-  {
-    positionsElement.innerHTML = structureProduitPanier;
-  }
   console.log('il y a  ' + nbproduit + ' produits dans le panier');
 }
 
 //-------------------------------------------------TOTAL ---------------------------------------
 
 let prixTotalCalcul = [];
-const total = sousTotalCalcul.reduce((acc, cur) => acc + cur);
+const total = sousTotalCalcul.reduce((acc, cur) => acc + cur,0);
 
 console.log("le total est " + total);
 
 // le html du prix total :
-const afficherPrixTotal = `<div class="prixTotal">Le prix total est : ${total}</div>`;
+const afficherPrixTotal = `<div class="prixTotal">Le prix total est : ${formatPrix(total)}</div>`;
 //selection de la classe ou je vais injecter mon html
 const positionsElement2 = document.querySelector(".tfoot");
+if (positionsElement2){
 positionsElement2.innerHTML = afficherPrixTotal;
+}
 
 //-----------------------------------VIDER LE PANIER-------------------------------------------------
 
@@ -85,7 +93,9 @@ btn_viderPanier.addEventListener("click", (e) => {
   e.preventDefault();
   localStorage.removeItem("produits");
   alert("Le panier a été vidé");
-  window.location.href = "panier.html";
+  //produits = [];
+  //positionsElement.innerText = '';
+  window.location.href = 'panier.html';
 });
 
 //-----------------------------------------FORMULAIRE-------------------------------------------------
@@ -154,6 +164,8 @@ function validateSurname() {
     errorSurname.style.display = "block";
     return false;
   }
+  errorSurname.style.display = "none";
+  return true;
 }
 
 function validerEmail() {
@@ -170,7 +182,9 @@ function validerEmail() {
     return false;
   } else {
     errorMail.style.display = "none";
+    return true;
   }
+  
 }
 
 function validateAdress() {
@@ -232,8 +246,19 @@ function validateCity() {
   errorCity.style.display = "none";
   return true;
 }
-
-
+function deleteProduct (){
+  let deleteButtons = document.querySelectorAll('.delete');
+  deleteButtons.forEach ((buttonDelete)=>{
+  buttonDelete.addEventListener('click', function(e){
+    e.preventDefault();
+    let index = e.currentTarget.id; //on récupère la position du produit dans le tableau de produits
+    produits = produits.filter((produit, position)=> position != index);// on filtre tous les produits dont la position est différente de la valeur de la variable index
+    localStorage.setItem('produits', JSON.stringify(produits));// on met à jour les produits dans le localstorage
+    window.location.reload();//on rehcarge la page
+  })
+  })
+}
+deleteProduct();
 
 
 

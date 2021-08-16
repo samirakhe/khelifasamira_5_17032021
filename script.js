@@ -33,7 +33,7 @@ function affichage (data){
             peluche.appendChild(description_courte);
             let price = document.createElement('p');
             price.classList.add('price');
-            price.innerText = info.price + '€';
+            price.innerText = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(info.price/100);
             peluche.appendChild(price);
             let lien = document.createElement('a');
             lien.href = "page_produit.html?id="+ info._id;//concaténation qui permet d'afficher l'id de chaque objet dans le permalien
