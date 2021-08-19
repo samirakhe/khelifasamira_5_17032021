@@ -165,7 +165,6 @@ button
     border: solid 2px #c37865;
     box-shadow: black;
     box-shadow: 5px 3px 5px #8a8a8a;
-    scale: 0;
     cursor: pointer;
     position: absolute;
     bottom:15px;

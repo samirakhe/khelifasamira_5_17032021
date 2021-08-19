@@ -8,8 +8,20 @@ if (!produits){
 }
 console.log(produits);
 
-
-
+function restore () {
+  let contactSTR = localStorage.getItem('contact');
+  if (contactSTR){
+    let contact = JSON.parse(contactSTR);
+    document.querySelector("#votrenom").value = contact.lastName;
+    document.querySelector("#prenom").value = contact.firstName;
+    document.querySelector("#email").value = contact.email;
+    document.querySelector("#adresse").value = contact.address;
+    document.querySelector("#cp").value = contact.code_postal;
+    document.querySelector("#ville").value = contact.city;
+  }
+  
+}
+restore();
 
 //-------------------------------------------------CALCUL SOUS TOTAL ---------------------------------------
 let sousTotalCalcul = [];
@@ -28,10 +40,7 @@ for (m = 0; m < produits.length; m++) {
 
 
 //----------------------------------------------------AFFICHAGE DES PRODUITS + PANIER VIDE-----------------------------
-
-
-//selection de la classe ou je vais injecter mon html
-const positionsElement = document.querySelector(".tbody");
+const positionsElement = document.querySelector(".tbody");//selection de la classe ou je vais injecter mon html
 
 //si le panier est vide : afficher le panier est vide
 let structureProduitPanier = [];
@@ -59,15 +68,14 @@ if (!produits || produits.length === 0) {
                 <td class="quantity">${produits[j].quantity}</td>
                 <td class="prix">${formatPrix(produits[j].price)}</td>
                 <td class="soustotal">${formatPrix(produits[j].price*produits[j].quantity)}</td>
-                <td ><button class='delete' id=${j}>Supprimer ce produit</button></td> <!-- On passe la position du produit dans le tableau de produits afin de l'utiliser pour supprimer le produit -->
+                <td ><button class='delete' id=${j}><i class="far fa-trash-alt"></i></button></td> <!-- On passe la position du produit dans le tableau de produits afin de l'utiliser pour supprimer le produit -->
 
             </tr>`;
   }
 positionsElement.innerHTML = structureProduitPanier;
 
   console.log('il y a  ' + nbproduit + ' produits dans le panier');
-}
-
+};
 //-------------------------------------------------TOTAL ---------------------------------------
 
 let prixTotalCalcul = [];
@@ -76,9 +84,9 @@ const total = sousTotalCalcul.reduce((acc, cur) => acc + cur,0);
 console.log("le total est " + total);
 
 // le html du prix total :
-const afficherPrixTotal = `<div class="prixTotal">Le prix total est : ${formatPrix(total)}</div>`;
+const afficherPrixTotal = `<div class="prixTotal">TOTAL : ${formatPrix(total)}</div>`;
 //selection de la classe ou je vais injecter mon html
-const positionsElement2 = document.querySelector(".tfoot");
+const positionsElement2 = document.querySelector(".totalprice");
 if (positionsElement2){
 positionsElement2.innerHTML = afficherPrixTotal;
 }
@@ -93,40 +101,86 @@ btn_viderPanier.addEventListener("click", (e) => {
   e.preventDefault();
   localStorage.removeItem("produits");
   alert("Le panier a été vidé");
-  //produits = [];
-  //positionsElement.innerText = '';
-  window.location.href = 'panier.html';
+  reload();
 });
 
+function reload (){
+  const leformulaire = {
+    lastName: document.querySelector("#votrenom").value,
+    firstName: document.querySelector("#prenom").value,
+    email: document.querySelector("#email").value,
+    address: document.querySelector("#adresse").value,
+    code_postal: document.querySelector("#cp").value,
+    city: document.querySelector("#ville").value,
+  };
+  localStorage.setItem('contact', JSON.stringify(leformulaire));
+  window.location.reload();
+}
 //-----------------------------------------FORMULAIRE-------------------------------------------------
 
 //selection du bouton
 
 let btn_envoyerleformulaire = document.querySelector(".bouton_commande");
 
-//adEvenetlistener
-
-btn_envoyerleformulaire.addEventListener("click", function (e) {
+btn_envoyerleformulaire.addEventListener("click",function (e) {
   e.preventDefault();
 
-  validateName();
-  validateSurname();
-  validerEmail();
-  validateAdress();
-  validateCP();
-  validateCity();
+  let isValidName = validateName();
+  let isValidSurname = validateSurname();
+  let isValidEmail = validerEmail();
+  let isValidAddress = validateAdress();
+  let isValidCP = validateCP();
+  let isValidCity = validateCity();
+  if (!isValidName || !isValidSurname || !isValidEmail || !isValidAddress || !isValidCP || !isValidCity || produits.lenght<=0 ){
+    return ;
+  }
+  
 
-  const leformulaire = {
-    nom: document.querySelector("#votrenom").value,
-    prenom: document.querySelector("#prenom").value,
-    email: document.querySelector("#email").value,
-    adresse: document.querySelector("#adresse").value,
-    code_postal: document.querySelector("#cp").value,
-    ville: document.querySelector("#ville").value,
-  };
+      const leformulaire = {
+        lastName: document.querySelector("#votrenom").value,
+        firstName: document.querySelector("#prenom").value,
+        email: document.querySelector("#email").value,
+        address: document.querySelector("#adresse").value,
+        code_postal: document.querySelector("#cp").value,
+        city: document.querySelector("#ville").value,
+      };
 
   console.log(leformulaire);
+
+//envoi du formulaire -------------------------------------
+  const dataOrder = {
+    contact: leformulaire,
+    products : produits.map(produit => produit._id),
+  
+  }
+  console.log(dataOrder)
+
+  fetch('http://localhost:3000/api/teddies/order',{
+    headers : {
+      'Accept' : 'application/json',
+      'Content-Type' :  'application/json'
+    },
+    method : 'POST',
+    body : JSON.stringify(dataOrder)
+  }).then (response => {
+    if(response.ok == true){
+      return response.json();
+    }
+  }).then (response => {
+    response.total = formatPrix(total);
+    window.sessionStorage.setItem('order', JSON.stringify(response));
+    window.localStorage.clear();
+    window.location.assign('validation.html');
+  }).catch(error => {
+    console.log(error);
+
+  });
+  
+  // fin envoi du formulaire ---------------------------------------
 });
+
+
+
 
 function validateName() {
   let inputName = document.querySelector("#votrenom");
@@ -254,54 +308,8 @@ function deleteProduct (){
     let index = e.currentTarget.id; //on récupère la position du produit dans le tableau de produits
     produits = produits.filter((produit, position)=> position != index);// on filtre tous les produits dont la position est différente de la valeur de la variable index
     localStorage.setItem('produits', JSON.stringify(produits));// on met à jour les produits dans le localstorage
-    window.location.reload();//on rehcarge la page
+    reload();//on rehcarge la page
   })
   })
 }
 deleteProduct();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*function afficherProduits(){
-    let datas = localStorage.getItem('produits');
-    if (datas){
-        let produits = JSON.parse(datas);
-        let containerProduits = document.querySelector('.containerProduits');
-        for (const produit of produits) {
-            let divNomCouleur = document.createElement('div');
-            divNomCouleur.classList.add('divNomCouleur');
-            let nomProduit = document.createElement('p');
-            nomProduit.innerText = produit.name;
-            divNomCouleur.appendChild(nomProduit);
-            let couleurProduit = document.createElement('p');
-            couleurProduit.innerText = produit.selectedColor;
-            divNomCouleur.appendChild(couleurProduit);
-            let quantityProduit = document.createElement('p');
-            quantityProduit.innerText = produit.quantity;
-            quantityProduit.classList.add('quantity');
-            divNomCouleur.appendChild(quantityProduit);
-            containerProduits.appendChild(divNomCouleur);
-        }
-    }
-}
-afficherProduits();*/

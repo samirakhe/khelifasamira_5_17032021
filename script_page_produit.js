@@ -73,15 +73,16 @@ function maPeluche(data) {
 
   let choixQuantité = document.createElement('input');
   choixQuantité.type = 'number';
+  choixQuantité.classList.add('quantité')
   choixQuantité.value = 1;
   choixQuantité.min = 1;
   info_produit.appendChild(choixQuantité);
-  let lien = document.createElement("a");
-  lien.href = "#";
+  //let lien = document.createElement("a");
+  //lien.href = "#";
   let button = document.createElement("button");
   button.innerText = "Ajouter au panier";
-  lien.appendChild(button);
-  info_produit.appendChild(lien);
+ // lien.appendChild(button);
+  info_produit.appendChild(button);
   button.addEventListener("click", function (e) {
     e.preventDefault();
 
@@ -113,8 +114,8 @@ function maPeluche(data) {
       }
 
       localStorage.setItem("produits", JSON.stringify(panier));
+      alert('Le produit a été ajouté au panier');
     }
 
-    window.location.href = "panier.html";
   });
 }
