@@ -1,109 +1,101 @@
-//récupération de la chaine de requete
+//Récupération de la chaine de requête
+const queryString_url_id = window.location.search; // Propriété contenant l'URL du document
+const IdPeluche = queryString_url_id.slice(4); //Permet d'isoler l'id sans le préfixe
 
-const queryString_url_id = window.location.search;
-console.log(queryString_url_id);
-
-const IdPeluche = queryString_url_id.slice(4); //on isole l'id sans le préfixe
-
-async function test() {
-  const response = await fetch(
-    `http://localhost:3000/api/teddies/${IdPeluche}`
-  );
+async function oneProduct () {
+  const response = await fetch(`http://localhost:3000/api/teddies/${IdPeluche}`);//Récupération des données de chaque produit avec un gabarit
   let data = await response.json();
   data.price = data.price/100;
-  maPeluche(data);
-  console.log(data); //on appelle la fonction de construction mapeluche et on y place data
-} //on récupère les données de chaque produit avec le suffixe `${}`
-test();
+  maPeluche(data);//on appelle la fonction de construction mapeluche et on y place data
+} 
+oneProduct();
 
-let body = document.querySelector("body");
+/*let body = document.querySelector("body");
 let lebody = document.createElement("div");
 lebody.classList.add("lebody");
-body.appendChild(lebody);
-
-
+body.appendChild(lebody);*/
 
 function maPeluche(data) {
   let container = document.querySelector(".container");
+//Création des éléments et Assignation à leur parents
 
   let img = document.createElement("img");
   img.src = data.imageUrl;
   img.classList.add("image_produit");
   img.alt = data.name;
   container.appendChild(img);
+//Informations globales-------------------------------------------------------------------------------------------
   let info_produit = document.createElement("div");
   info_produit.classList.add("info_produit");
   container.appendChild(info_produit);
+//Nom du produit-------------------------------------------------------------------------------------------
   let h1 = document.createElement("h1");
   h1.innerText = data.name;
   info_produit.appendChild(h1);
+//Prix du produit-------------------------------------------------------------------------------------------
   let price = document.createElement("p");
   price.classList.add("price");
   price.innerText = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(data.price);
   info_produit.appendChild(price);
+//Description du produit-------------------------------------------------------------------------------------------
   let description = document.createElement("p");
   description.classList.add("description");
   description.innerText = data.description;
   info_produit.appendChild(description);
-  let color = document.createElement("select"); //CREATION DU MENU DEROULANT
-  color.classList.add("color"); //LE MENU SAPEL COLOR
-  let alerte = document.createElement("small"); //TEXT DERREUR
-  alerte.id = "alerte"; //ON LUI DONNE UN ID ALERTE
-  info_produit.appendChild(color);
+//Couleur du produit -  Création du menu déroulant-------------------------------------------------------------------------------------------
+  let colorMenu = document.createElement("select"); 
+  colorMenu.classList.add("colorMenu");
+  let alerte = document.createElement("small"); //texte d'erreur
+  alerte.id = "alerte";
+  info_produit.appendChild(colorMenu);
   info_produit.appendChild(alerte);
-  let option = document.createElement("option"); // CREATION DU CHOIX PAR DEFAULT
-  option.innerText = "choix des couleurs";
-  option.value = ""; // cette option n'a pas de value donc quand elle est selecitonné elle est nulle
-  color.appendChild(option);
+// Création du choix par défaut
+  let optionDefaut = document.createElement("option"); 
+  optionDefaut.innerText = "Couleurs disponibles";
+  optionDefaut.value = ""; //aucune value pour un résultat null à la sélection
+  colorMenu.appendChild(optionDefaut);
+
   for (let i = 0; i < data.colors.length; i += 1) {
-    let info = data.colors[i]; //dans les données du produits on veut la clé colors
-    let color1 = document.createElement("option"); // ON CREE COLOR1 QUI CORRESPONDRA A CHAUQE COULEUR
-    color1.classList.add("color1");
-    color1.innerText = info; //COLOR1 CORRESPOND A INFO QUI LUI MEME CORRESPOND A DATA COLORS
-    color1.value = info; //sa valeur c'est celle de info
-    color.appendChild(color1); //on lui donne comme parent le menu deroulant
+    let info = data.colors[i]; // Clé "colors" dans les données du produits (data)
+    let color = document.createElement("option"); // Variable 'color' qui correspondra à chaque couleur
+    color.classList.add("color");
+    color.innerText = info; //Texte de la variable color = info = data.colors
+    color.value = info; //Valeur de la variable color = info = data.colors
+    colorMenu.appendChild(color);
   }
-  color.addEventListener("change", function (e) {
-    console.log(e);
-    let valeur = e.target.value; // le e correspond au type change, target correspond a lelement html donc ici c'est select, et value correspond à color
+  colorMenu.addEventListener("change", function (e) {//Change est déclenché lorsqu'un changement de valeur est réalisé par l'utilisateur
+    let valeur = e.target.value; //e correspond au type change, target correspond à l'élément html select, et value correspond à color
     if (valeur) {
       alerte.innerText = "";
     }
   });
-
+//Quantité du produit-------------------------------------------------------------------------------------------
   let choixQuantité = document.createElement('input');
   choixQuantité.type = 'number';
-  choixQuantité.classList.add('quantité')
+  choixQuantité.classList.add('quantité');
   choixQuantité.value = 1;
   choixQuantité.min = 1;
   info_produit.appendChild(choixQuantité);
-  //let lien = document.createElement("a");
-  //lien.href = "#";
+//Bouton ajouer au panier-------------------------------------------------------------------------------------------
   let button = document.createElement("button");
   button.innerText = "Ajouter au panier";
- // lien.appendChild(button);
   info_produit.appendChild(button);
   button.addEventListener("click", function (e) {
     e.preventDefault();
-
-    let selectedColor = color.value; //variable pour la couleur choisi avec la valeur du menu deroulant
-    console.log(selectedColor);
+    let selectedColor = colorMenu.value; //Couleur choisi avec la valeur du menu déroulant
     if (!selectedColor) {
-      // si différents de selectedcolor alors on affiche ce message
       alerte.innerText = "Veuillez sélectionner une couleur";
     } else {
-      let produit = data; //produit equivant aux donnée du produit
+      let produit = data; //produit équivaut aux données du produit
       produit.selectedColor = selectedColor;
       let datas = localStorage.getItem("produits");
-      //let panier = localStorage.getItem('produits') || [] pareil que ligne 77 sauf que l'on ne converti pas
-      let panier = datas ? JSON.parse(datas) : []; //: signifie if; data? signifie que si cette donnée est défini alors ca converti en json sinon ca renvoi un tableau vide
+      let panier = datas ? JSON.parse(datas) : []; //data? signie que si cette donnée est définie, converison en JSON. Sinon, affichage tableau vide.
       let index = panier.findIndex(function (element) {
         return (
           element._id === produit._id &&
           element.selectedColor === produit.selectedColor
         );
-      });
-      console.log(index);
+      });     
       if (index >= 0) {
         let exist = panier[index];
         exist.quantity = exist.quantity + choixQuantité.value;
@@ -112,10 +104,8 @@ function maPeluche(data) {
         produit.quantity = choixQuantité.value;
         panier.push(produit); //rentre les données du produits (data)dans le tableau "panier"
       }
-
       localStorage.setItem("produits", JSON.stringify(panier));
       alert('Le produit a été ajouté au panier');
     }
-
   });
 }

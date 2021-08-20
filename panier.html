@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css_panier.css">
-    <link rel="stylesheet" media="screen and (max-width:1253px)" href="mobile.css">
+    <link rel="stylesheet"  href="css_panier.css">
+    <link rel="stylesheet" media="screen and (max-width:1253px)" href="mobile_page_panier.css">
     <script src="https://kit.fontawesome.com/0c2033016f.js" crossorigin="anonymous"></script>
     <title>Orinoco</title>
 </head>
@@ -26,7 +26,8 @@
     </header>
 
 <!--SECTION-->
-<h1>Panier</h1>
+<section>
+<h1>Votre Panier</h1>
 
 <table class="tableau containerProduitsPanier">
     <thead>
@@ -44,7 +45,9 @@
     <tfoot class="tfoot"></tfoot>
     
 </table>
+
 <div class="totalprice"></div>
+
 <button class="paniervide">Vider le Panier</button>
 
 
@@ -78,14 +81,13 @@
             <button name ="valider_la_commande" type="submit" class="bouton_commande" onclick="validerEmail();"> Valider la commande et Payer</button>
         </form>
 </div>
-
-
+</section>
 <!--FIN SECTION-->
 
 
 
  <!--FOOTER-->
-<div class="footer">
+<footer>
     <div class="logo">
         <img class="img_logo" src="images/logo_orinoco.jpg" alt="logo orinoco">
     </div>
@@ -94,7 +96,8 @@
         <h3><a href="">Mentions Légales</a></h3>
         <h3><a href="">Contact</a></h3>
     </div>
-</div><!--FIN FOOTER-->
+</div>
+</footer><!--FIN FOOTER-->
 
 
 <script src="panier_script.js"></script>

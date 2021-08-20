@@ -1,13 +1,12 @@
 function formatPrix (prix){
   return  new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(prix);
 }
-
+//-----------------------------------------------------------------------------------------------------
 let produits = JSON.parse(localStorage.getItem("produits"));
 if (!produits){
   produits = [];
 }
-console.log(produits);
-
+//-----------------------------------------------------------------------------------------------------
 function restore () {
   let contactSTR = localStorage.getItem('contact');
   if (contactSTR){
@@ -19,9 +18,10 @@ function restore () {
     document.querySelector("#cp").value = contact.code_postal;
     document.querySelector("#ville").value = contact.city;
   }
-  
 }
 restore();
+//-----------------------------------------------------------------------------------------------------
+
 
 //-------------------------------------------------CALCUL SOUS TOTAL ---------------------------------------
 let sousTotalCalcul = [];
@@ -31,8 +31,8 @@ for (m = 0; m < produits.length; m++) {
 
   sousTotal = quantité * prixUnitaire;
   sousTotalCalcul.push(sousTotal);
-  console.log("le soustotal est" + sousTotal);
-}//---------------------------------------------------FIN CALCUL SOUS TOTAL-------------------------------------------
+}
+//---------------------------------------------------FIN CALCUL SOUS TOTAL-------------------------------------------
 
 
 
@@ -40,7 +40,7 @@ for (m = 0; m < produits.length; m++) {
 
 
 //----------------------------------------------------AFFICHAGE DES PRODUITS + PANIER VIDE-----------------------------
-const positionsElement = document.querySelector(".tbody");//selection de la classe ou je vais injecter mon html
+const positionsElement = document.querySelector(".tbody");//Injecter le html dans la classe tbody
 
 //si le panier est vide : afficher le panier est vide
 let structureProduitPanier = [];
@@ -53,15 +53,12 @@ if (!produits || produits.length === 0) {
     `;
   let tableau = document.querySelector(".tableau");
   tableau.innerHTML = paniervide;
-} else {
-  // si le panier n'est pas vide , afficher les produits dans le localstorage
-  let nbproduit = 0;
 
+}
+// si le panier n'est pas vide , afficher les produits enregistrés dans le localstorage
+else {
   for (j = 0; j < produits.length; j++) {
-    nbproduit += produits[j].quantity;
-
-    structureProduitPanier = structureProduitPanier + `
-       
+     structureProduitPanier = structureProduitPanier + `
             <tr>
                 <td class="divNomCouleur">${produits[j].name}</td>
                 <td class="coloris">${produits[j].selectedColor}</td>
@@ -69,23 +66,20 @@ if (!produits || produits.length === 0) {
                 <td class="prix">${formatPrix(produits[j].price)}</td>
                 <td class="soustotal">${formatPrix(produits[j].price*produits[j].quantity)}</td>
                 <td ><button class='delete' id=${j}><i class="far fa-trash-alt"></i></button></td> <!-- On passe la position du produit dans le tableau de produits afin de l'utiliser pour supprimer le produit -->
-
             </tr>`;
   }
 positionsElement.innerHTML = structureProduitPanier;
-
-  console.log('il y a  ' + nbproduit + ' produits dans le panier');
 };
-//-------------------------------------------------TOTAL ---------------------------------------
+
+
+//-------------------------------------------------TOTAL --------------------------------------------------------
 
 let prixTotalCalcul = [];
 const total = sousTotalCalcul.reduce((acc, cur) => acc + cur,0);
 
-console.log("le total est " + total);
-
 // le html du prix total :
 const afficherPrixTotal = `<div class="prixTotal">TOTAL : ${formatPrix(total)}</div>`;
-//selection de la classe ou je vais injecter mon html
+//selection de la classe où injecter mon html
 const positionsElement2 = document.querySelector(".totalprice");
 if (positionsElement2){
 positionsElement2.innerHTML = afficherPrixTotal;
@@ -94,9 +88,7 @@ positionsElement2.innerHTML = afficherPrixTotal;
 //-----------------------------------VIDER LE PANIER-------------------------------------------------
 
 let btn_viderPanier = document.querySelector(".paniervide");
-
 //suppression de la key produit du localstorage
-
 btn_viderPanier.addEventListener("click", (e) => {
   e.preventDefault();
   localStorage.removeItem("produits");
@@ -117,11 +109,7 @@ function reload (){
   window.location.reload();
 }
 //-----------------------------------------FORMULAIRE-------------------------------------------------
-
-//selection du bouton
-
 let btn_envoyerleformulaire = document.querySelector(".bouton_commande");
-
 btn_envoyerleformulaire.addEventListener("click",function (e) {
   e.preventDefault();
 
@@ -131,12 +119,13 @@ btn_envoyerleformulaire.addEventListener("click",function (e) {
   let isValidAddress = validateAdress();
   let isValidCP = validateCP();
   let isValidCity = validateCity();
+  // Bloquer le POST si les éléments ne sont pas bons
   if (!isValidName || !isValidSurname || !isValidEmail || !isValidAddress || !isValidCP || !isValidCity || produits.lenght<=0 ){
     return ;
   }
   
 
-      const leformulaire = {
+const leformulaire = {
         lastName: document.querySelector("#votrenom").value,
         firstName: document.querySelector("#prenom").value,
         email: document.querySelector("#email").value,
@@ -144,18 +133,14 @@ btn_envoyerleformulaire.addEventListener("click",function (e) {
         code_postal: document.querySelector("#cp").value,
         city: document.querySelector("#ville").value,
       };
-
-  console.log(leformulaire);
-
-//envoi du formulaire -------------------------------------
+//Envoi du formulaire --------------------------------------------------------------------------------
   const dataOrder = {
     contact: leformulaire,
     products : produits.map(produit => produit._id),
-  
   }
-  console.log(dataOrder)
 
-  fetch('http://localhost:3000/api/teddies/order',{
+// Requête POST
+fetch('http://localhost:3000/api/teddies/order',{
     headers : {
       'Accept' : 'application/json',
       'Content-Type' :  'application/json'
@@ -172,13 +157,10 @@ btn_envoyerleformulaire.addEventListener("click",function (e) {
     window.localStorage.clear();
     window.location.assign('validation.html');
   }).catch(error => {
-    console.log(error);
-
   });
-  
-  // fin envoi du formulaire ---------------------------------------
+// fin envoi du formulaire ---------------------------------------
 });
-
+//fin formulaire------------------------------------------------------------------------------------------------
 
 
 
@@ -206,11 +188,10 @@ function validateSurname() {
   let inputSurname = document.querySelector("#prenom");
   let valueSurname = inputSurname.value;
   let errorSurname = document.querySelector(".prenom");
-  //trim permet de supprimer les espaces au extremités d'une chaine de caractères
   if (!valueSurname.trim()) {
     errorSurname.innerText = "Veuillez remplir ce champ";
     errorSurname.style.display = "block";
-    inputSurname.value = ""; // '' permet de vider le champs entierement
+    inputSurname.value = "";
     return false;
   }
   if (valueSurname.length < 2) {
@@ -221,7 +202,7 @@ function validateSurname() {
   errorSurname.style.display = "none";
   return true;
 }
-
+// METHODE REGEX
 function validerEmail() {
   let inputMail = document.getElementById("email");
   let valueMail = inputMail.value;
@@ -231,25 +212,23 @@ function validerEmail() {
   if (!regx.test(inputMail.value)) {
     errorMail.innerText = "Adresse email incorrecte";
     errorMail.style.display = "block";
-    inputMail.value = ""; // '' permet de vider le champs entierement
+    inputMail.value = "";
     inputMail.focus;
     return false;
   } else {
     errorMail.style.display = "none";
     return true;
   }
-  
 }
 
 function validateAdress() {
   let inputAdress = document.querySelector("#adresse");
   let valueAdress = inputAdress.value;
   let errorAdress = document.querySelector(".adresse");
-  //trim permet de supprimer les espaces au extremités d'une chaine de caractères
   if (!valueAdress.trim()) {
     errorAdress.innerText = "Veuillez remplir ce champ";
     errorAdress.style.display = "block";
-    inputAdress.value = ""; // '' permet de vider le champs entierement
+    inputAdress.value = "";
     return false;
   }
   if (valueAdress.length < 5) {
@@ -265,11 +244,10 @@ function validateCP() {
   let inputCP = document.querySelector("#cp");
   let valueCP = inputCP.value;
   let errorCP = document.querySelector(".cp");
-  //trim permet de supprimer les espaces au extremités d'une chaine de caractères
   if (!valueCP.trim()) {
     errorCP.innerText = "Veuillez remplir ce champ";
     errorCP.style.display = "block";
-    inputCP.value = ""; // '' permet de vider le champs entierement
+    inputCP.value = "";
     return false;
   }
   if (valueCP.length < 5) {
@@ -285,11 +263,10 @@ function validateCity() {
   let inputCity = document.querySelector("#ville");
   let valueCity = inputCity.value;
   let errorCity = document.querySelector(".ville");
-  //trim permet de supprimer les espaces au extremités d'une chaine de caractères
   if (!valueCity.trim()) {
     errorCity.innerText = "Veuillez remplir ce champ";
     errorCity.style.display = "block";
-    inputCity.value = ""; // '' permet de vider le champs entierement
+    inputCity.value = "";
     return false;
   }
   if (valueCity.length < 2) {
@@ -308,7 +285,7 @@ function deleteProduct (){
     let index = e.currentTarget.id; //on récupère la position du produit dans le tableau de produits
     produits = produits.filter((produit, position)=> position != index);// on filtre tous les produits dont la position est différente de la valeur de la variable index
     localStorage.setItem('produits', JSON.stringify(produits));// on met à jour les produits dans le localstorage
-    reload();//on rehcarge la page
+    reload();//on recharge la page
   })
   })
 }

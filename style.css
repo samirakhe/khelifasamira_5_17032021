@@ -6,7 +6,6 @@
     font-style: normal;
 
 }
-
 @font-face {
     font-family: 'montserrat_alternatesregular';
     src: url('montserratalternates-regular.woff2') format('woff2'),
@@ -25,7 +24,7 @@ body
 	max-width: 1440px;
 	margin:auto;
 }
-header, .footer
+header, footer
 {
     background-color:#f3e9f1;
     padding-bottom: 20px;
@@ -61,9 +60,19 @@ h1, h2
     text-align: center;
     font-family: 'wurmics_bravuraregular';
 }
-h1{
+h1
+{
     font-size: 45px;
     text-decoration: underline;
+}
+h3
+{
+    margin-left:10px;
+    margin-right: 10px;
+}
+h4
+{
+    text-align: center;
 }
 .product_list
 {
@@ -121,20 +130,18 @@ button:hover
     font-weight: bold;
     box-shadow: 5px 3px 5px #252525;
 }
-
 .menu_footer
 {
     display: flex;
     justify-content: center;
     font-size: 12px;
 }
-h3
-{
-    margin-left:10px;
-    margin-right: 10px;
-}
 button a
 {
     text-decoration: none;
     color:black;
+}
+.order 
+{
+    text-align: center;
 }

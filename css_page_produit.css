@@ -6,14 +6,12 @@
     font-style: normal;
 
 }
-
 @font-face {
     font-family: 'montserrat_alternatesregular';
     src: url('montserratalternates-regular.woff2') format('woff2'),
          url('montserratalternates-regular.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-
 }
 body
 {
@@ -25,11 +23,10 @@ body
 	max-width: 1440px;
 	margin:auto;
 }
-header, .footer
+header, footer
 {
     background-color:#f3e9f1;
     padding-bottom: 20px;
-
 }
 .top_bar
 {
@@ -54,7 +51,6 @@ header, .footer
     margin-top:30px;
     width: 240px;
     height: auto;
-
 }
 h1
 {
@@ -72,11 +68,14 @@ h2
     text-align:center;
     font-size: 15px;
 }
+h3
+{
+    margin-left:10px;
+    margin-right: 10px;
+}
 .image_produit
 {
     margin:10px;
-    cursor: pointer;
-    
 }
 .image_produit:hover
 {
@@ -87,6 +86,7 @@ h2
     border: dotted 5px #dededa;
     text-align: center;
     width: 80%;
+    height: 450px;
     display: flex;
     flex-direction: row;
     background-color:#f3e9f1;
@@ -116,22 +116,19 @@ h2
     font-size: 25px;
     font-weight: bolder;
 }
-.color
+.colorMenu
 {
     font-size: 15px;
     border: solid 2px #c37865;
     font-family: 'montserrat_alternatesregular';
     padding: 7px;
 }
-
 .quantité
 {
     margin-top:5px;
     padding: 2px;
     width: 10%;
 }
-
-
 button
 {
     font-family: 'montserrat_alternatesregular';
@@ -153,15 +150,9 @@ button:hover
     font-weight: bold;
     box-shadow: 5px 3px 5px #252525;
 }
-
 .menu_footer
 {
     display: flex;
     justify-content: center;
     font-size: 12px;
-}
-h3
-{
-    margin-left:10px;
-    margin-right: 10px;
 }
