@@ -95,7 +95,7 @@ h3
 }
 .container:hover
 {
-    background-color:none;
+    background-color:#f3e9f1;
 }
 
 .info_produit
@@ -136,7 +136,6 @@ button
     font-size: 17px;
     padding: 10px 15px;
     border: solid 2px #c37865;
-    box-shadow: black;
     box-shadow: 5px 3px 5px #8a8a8a;
     cursor: pointer;
     position: absolute;

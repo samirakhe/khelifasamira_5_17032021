@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet"  href="css_panier.css">
-    <link rel="stylesheet" media="screen and (max-width:1253px)" href="mobile_page_panier.css">
+    <link rel="stylesheet" media="screen and (max-width:1200px)" href="mobile_page_panier.css">
     <script src="https://kit.fontawesome.com/0c2033016f.js" crossorigin="anonymous"></script>
     <title>Orinoco</title>
 </head>
@@ -54,8 +54,8 @@
 <div class="validation">
         <h3> Vos Coordonnées </h3>
         <form>
-            <label for ="nom">Nom</label>
-            <input type="text" name="nom" id="votrenom" minlength = "2"  required >
+            <label for ="votrenom">Nom</label>
+            <input type="text" name="votrenom" id="votrenom" minlength = "2"  required >
             <small class='error nom'></small>
 
             <label for ="prenom">Prénom</label>
@@ -70,8 +70,8 @@
             <input type="text" name="adresse"  id="adresse" minlength = "5" required> 
             <small class='error adresse'></small>
 
-            <label for ="code postal">Code Postal</label>
-            <input type="number" name="code_postal" id="cp" minlength = "5" required> 
+            <label for ="cp">Code Postal</label>
+            <input type="number" name="code_postal" id="cp" required> 
             <small class='error cp'></small>
 
             <label for ="ville">Ville</label>
@@ -96,10 +96,8 @@
         <h3><a href="">Mentions Légales</a></h3>
         <h3><a href="">Contact</a></h3>
     </div>
-</div>
 </footer><!--FIN FOOTER-->
-
-
+</div>
 <script src="panier_script.js"></script>
 </body>
 </html>

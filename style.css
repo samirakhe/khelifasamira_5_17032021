@@ -118,9 +118,7 @@ button
     font-size: 17px;
     padding: 10px 15px;
     border: solid 2px #c37865;
-    box-shadow: black;
     box-shadow: 5px 3px 5px #8a8a8a;
-    scale: 0;
     cursor: pointer;
 }
 button:hover
