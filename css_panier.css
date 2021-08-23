@@ -172,3 +172,21 @@ button:hover {
     justify-content: center;
     font-size: 12px;
 }
+
+
+
+
+@media screen and (max-width: 1200px){
+
+  .totalprice{
+    width: 60%;
+  }
+  .validation{
+    width: 90%;
+  }
+  .menu_footer
+  {
+    flex-direction: column;
+    text-align: center;
+  }
+}

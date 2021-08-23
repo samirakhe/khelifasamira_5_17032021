@@ -161,7 +161,6 @@ function send (dataOrder){
     window.localStorage.clear();
     window.location.assign('validation.html');
   }).catch(error => {
-    console.log(error);
   });
 }
 
@@ -175,7 +174,7 @@ function getData (){
     code_postal: document.querySelector("#cp").value,
     city: document.querySelector("#ville").value,
   };
-//Données du formulaire --------------------------------------------------------------------------------
+              //Données du formulaire --------------------------------------------------------------------------------
     const dataOrder = {
     contact: leformulaire,
     products : produits.map(produit => produit._id),
@@ -183,7 +182,7 @@ function getData (){
     return dataOrder;
 }
 function sendButton (){
-  let btn_envoyerleformulaire = document.querySelector(".bouton_commande");
+let btn_envoyerleformulaire = document.querySelector(".bouton_commande");
 btn_envoyerleformulaire.addEventListener("click",function (e) {
   e.preventDefault(); 
 

@@ -45,4 +45,3 @@ function affichage (data){
         }
 }
 shop();
-console.log(shop)

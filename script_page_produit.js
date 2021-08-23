@@ -12,7 +12,6 @@ oneProduct();
 
 function maPeluche(data) { //fct permet d'afficher le produit
   let container = document.querySelector(".container");
-//Création des éléments et Assignation à leur parents
   let img = imgPeluche(data);
   container.appendChild(img);
 //Informations globales-------------------------------------------------------------------------------------------
@@ -50,6 +49,8 @@ function maPeluche(data) { //fct permet d'afficher le produit
   let button = buttonProduct(data);
   info_produit.appendChild(button);
 }
+
+
 function imgPeluche (data){
   let img = document.createElement("img");
   img.src = data.imageUrl;
@@ -57,6 +58,8 @@ function imgPeluche (data){
   img.alt = data.name;
   return img;
 }
+
+
 function colorPeluche (data){
   let colorMenu = document.createElement("select"); 
   colorMenu.classList.add("colorMenu");
@@ -80,6 +83,8 @@ function colorPeluche (data){
   });
   return colorMenu;
 }
+
+
 function buttonProduct (data) {
   let colorMenu = document.querySelector('.colorMenu');
   let choixQuantite = document.querySelector('.quantite');
@@ -93,13 +98,14 @@ function buttonProduct (data) {
     } else {
       let produit = data; //produit équivaut aux données du produit
       produit.selectedColor = selectedColor;
-      produit.quantity = choixQuantite.value;
+      produit.quantity = Number(choixQuantite.value);
       addProduct(produit);
     }
-
   });
   return button;
 }
+
+
 function addProduct(produit) {
   let datas = localStorage.getItem("produits");
   let panier = datas ? JSON.parse(datas) : []; //data? signie que si cette donnée est définie, converison en JSON. Sinon, affichage tableau vide.
@@ -111,7 +117,7 @@ function addProduct(produit) {
   });     
   if (index >= 0) {
     let exist = panier[index];
-    exist.quantity = exist.quantity +produit.quantity;
+    exist.quantity = Number (exist.quantity) +produit.quantity;
     panier[index] = exist; //pour remplacer le produit qui a été incrémenter, passer de 1 à 2 3 4..
   } else {
     panier.push(produit); //rentre les données du produits (data)dans le tableau "panier"
