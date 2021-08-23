@@ -20,7 +20,7 @@ body
 }
 .bloc_page
 {
-	max-width: 1440px;
+    min-width: 769px;
 	margin:auto;
 }
 header, footer
@@ -56,9 +56,6 @@ h1
 {
     text-align: center;
     font-family: 'wurmics_bravuraregular';
-    font-size: 25px;
-}
-h1{
     font-size: 45px;
     text-decoration: underline;
 }
@@ -97,7 +94,6 @@ h3
 {
     background-color:#f3e9f1;
 }
-
 .info_produit
 {
     position: relative;
@@ -129,6 +125,7 @@ h3
     padding: 2px;
     width: 10%;
 }
+
 button
 {
     font-family: 'montserrat_alternatesregular';
@@ -154,4 +151,89 @@ button:hover
     display: flex;
     justify-content: center;
     font-size: 12px;
+}
+
+
+
+
+@media screen and (max-width: 1200px)
+{
+    .bloc_page{
+        max-width: 1200px;
+    }
+    .peluche
+{
+    border: dotted 5px #dededa;
+    text-align: center;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin:30px auto 30px auto;
+    background-color:#f3e9f1;
+}
+    .container
+{
+    border: dotted 5px #dededa;
+    text-align: center;
+    width: 80%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    background-color:#f3e9f1;
+    position: relative;
+    margin:30px auto 30px auto;
+}
+    .container:hover
+{
+    background-color:#f3e9f1;
+}
+    .info_produit
+{
+    font-size: 17px;
+    text-align: center;
+    padding:0px 20px 0px 20px;
+}
+    .color
+{
+    justify-content: center;
+}
+    button
+{
+    font-family: 'montserrat_alternatesregular';
+    background-color: white;
+    font-size: 17px;
+    padding: 10px 15px;
+    border: solid 2px #c37865;
+    box-shadow: 5px 3px 5px #8a8a8a;
+    cursor: pointer;
+    position: relative;
+    margin-top:30px;
+}
+    .image_produit
+{
+    width: 100%;
+    position: relative;
+    margin:0px;
+}
+    .colorMenu
+{
+    width: 30%;
+    margin: auto;
+}
+    .quantité
+{
+    margin:auto;
+    margin-top:10px;
+    border:1px solid grey;
+}
+    button{
+    margin:auto;
+    margin-top:45px;
+    left:0;
+}
+    .menu_footer
+{
+    flex-direction: column;
+    text-align: center;
+}
 }

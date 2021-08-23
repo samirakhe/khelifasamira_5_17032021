@@ -21,9 +21,16 @@ body
 }
 .bloc_page
 {
-	max-width: 1440px;
+    min-width: 769px;
 	margin:auto;
 }
+@media screen and (max-width: 768px)
+{
+    .bloc_page{
+        max-width: 768px;
+    }
+}
+
 header, footer
 {
     background-color:#f3e9f1;
@@ -106,6 +113,12 @@ h4
     background-color:#f3e9f1;
     
 }
+@media screen and (max-width: 768px)
+{
+    .peluche{
+        width: 100%;
+    }
+}
 .peluche:hover
 {
     background-color:#f3e9f167;
@@ -133,6 +146,14 @@ button:hover
     display: flex;
     justify-content: center;
     font-size: 12px;
+}
+@media screen and (max-width: 768px)
+{
+    .menu_footer{
+    flex-direction: column;
+    text-align: center;
+}
+    }
 }
 button a
 {

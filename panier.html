@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet"  href="css_panier.css">
-    <link rel="stylesheet" media="screen and (max-width:1200px)" href="mobile_page_panier.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/0c2033016f.js" crossorigin="anonymous"></script>
     <title>Orinoco</title>
 </head>
@@ -28,7 +28,24 @@
 <!--SECTION-->
 <section>
 <h1>Votre Panier</h1>
+<div class="table-responsive">
+<table class="table tableau align-middle">
+    <thead>
+      <tr>
+        <th scope="col">Produits</th>
+        <th scope="col">Options</th>
+        <th scope="col">Quantité</th>
+        <th scope="col">Prix Unitaire</th>
+        <th scope="col">Sous-Total</th>
+        <th scope="col">Supprimer</th>
+      </tr>
+    </thead>
+    <tbody class="tbody"></tbody>
+    <tfoot class="tfoot"></tfoot>
+  </table>
+  </div>
 
+<!--
 <table class="tableau containerProduitsPanier">
     <thead>
         <tr>
@@ -44,7 +61,7 @@
     <tbody class="tbody"></tbody>
     <tfoot class="tfoot"></tfoot>
     
-</table>
+</table>-->
 
 <div class="totalprice"></div>
 

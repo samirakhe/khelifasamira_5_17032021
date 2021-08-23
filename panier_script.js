@@ -65,7 +65,7 @@ else {
                 <td class="quantity">${produits[j].quantity}</td>
                 <td class="prix">${formatPrix(produits[j].price)}</td>
                 <td class="soustotal">${formatPrix(produits[j].price*produits[j].quantity)}</td>
-                <td ><button class='delete' id=${j}><i class="far fa-trash-alt"></i></button></td> <!-- On passe la position du produit dans le tableau de produits afin de l'utiliser pour supprimer le produit -->
+                <td ><button class='delete btn btn-danger' id=${j}><i class="far fa-trash-alt"></i></button></td> <!-- On passe la position du produit dans le tableau de produits afin de l'utiliser pour supprimer le produit -->
             </tr>`;
   }
 positionsElement.innerHTML = structureProduitPanier;
@@ -138,7 +138,6 @@ const leformulaire = {
     contact: leformulaire,
     products : produits.map(produit => produit._id),
   }
-
 // Requête POST
 fetch('http://localhost:3000/api/teddies/order',{
     headers : {
