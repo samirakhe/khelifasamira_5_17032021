@@ -1,3 +1,5 @@
+const positionsElement = document.querySelector(".tbody");
+let total = 0;
 function formatPrix (prix){
   return  new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(prix);
 }
@@ -20,82 +22,6 @@ function restore () {
   }
 }
 restore();
-//-----------------------------------------------------------------------------------------------------
-
-
-//-------------------------------------------------CALCUL SOUS TOTAL ---------------------------------------
-let sousTotalCalcul = [];
-for (m = 0; m < produits.length; m++) {
-  let quantité = produits[m].quantity;
-  let prixUnitaire = produits[m].price;
-
-  sousTotal = quantité * prixUnitaire;
-  sousTotalCalcul.push(sousTotal);
-}
-//---------------------------------------------------FIN CALCUL SOUS TOTAL-------------------------------------------
-
-
-
-
-
-
-//----------------------------------------------------AFFICHAGE DES PRODUITS + PANIER VIDE-----------------------------
-const positionsElement = document.querySelector(".tbody");//Injecter le html dans la classe tbody
-
-//si le panier est vide : afficher le panier est vide
-let structureProduitPanier = [];
-if (!produits || produits.length === 0) {
-  const paniervide = `
-    <div class = "containerPanierVide">
-        <div>LE PANIER EST VIDE</div>
-        <a href="index.html">Retourner à la boutique</a>
-    </div>
-    `;
-  let tableau = document.querySelector(".tableau");
-  tableau.innerHTML = paniervide;
-
-}
-// si le panier n'est pas vide , afficher les produits enregistrés dans le localstorage
-else {
-  for (j = 0; j < produits.length; j++) {
-     structureProduitPanier = structureProduitPanier + `
-            <tr>
-                <td class="divNomCouleur">${produits[j].name}</td>
-                <td class="coloris">${produits[j].selectedColor}</td>
-                <td class="quantity">${produits[j].quantity}</td>
-                <td class="prix">${formatPrix(produits[j].price)}</td>
-                <td class="soustotal">${formatPrix(produits[j].price*produits[j].quantity)}</td>
-                <td ><button class='delete btn btn-danger' id=${j}><i class="far fa-trash-alt"></i></button></td> <!-- On passe la position du produit dans le tableau de produits afin de l'utiliser pour supprimer le produit -->
-            </tr>`;
-  }
-positionsElement.innerHTML = structureProduitPanier;
-};
-
-
-//-------------------------------------------------TOTAL --------------------------------------------------------
-
-let prixTotalCalcul = [];
-const total = sousTotalCalcul.reduce((acc, cur) => acc + cur,0);
-
-// le html du prix total :
-const afficherPrixTotal = `<div class="prixTotal">TOTAL : ${formatPrix(total)}</div>`;
-//selection de la classe où injecter mon html
-const positionsElement2 = document.querySelector(".totalprice");
-if (positionsElement2){
-positionsElement2.innerHTML = afficherPrixTotal;
-}
-
-//-----------------------------------VIDER LE PANIER-------------------------------------------------
-
-let btn_viderPanier = document.querySelector(".paniervide");
-//suppression de la key produit du localstorage
-btn_viderPanier.addEventListener("click", (e) => {
-  e.preventDefault();
-  localStorage.removeItem("produits");
-  alert("Le panier a été vidé");
-  reload();
-});
-
 function reload (){
   const leformulaire = {
     lastName: document.querySelector("#votrenom").value,
@@ -108,11 +34,102 @@ function reload (){
   localStorage.setItem('contact', JSON.stringify(leformulaire));
   window.location.reload();
 }
-//-----------------------------------------FORMULAIRE-------------------------------------------------
-let btn_envoyerleformulaire = document.querySelector(".bouton_commande");
-btn_envoyerleformulaire.addEventListener("click",function (e) {
-  e.preventDefault();
+//-----------------------------------------------------------------------------------------------------
 
+
+//-------------------------------------------------CALCUL  TOTAL ---------------------------------------
+
+function totalProduit (){
+  let sousTotalCalcul = [];
+  for (m = 0; m < produits.length; m++) {
+  let quantité = produits[m].quantity;
+  let prixUnitaire = produits[m].price;
+
+  sousTotal = quantité * prixUnitaire;
+  sousTotalCalcul.push(sousTotal);
+  }
+  let prixTotalCalcul = [];
+  total = sousTotalCalcul.reduce((acc, cur) => acc + cur,0);
+
+  // le html du prix total :
+  const afficherPrixTotal = `<div class="prixTotal">TOTAL : ${formatPrix(total)}</div>`;
+  //selection de la classe où injecter mon html
+  const positionsElement2 = document.querySelector(".totalprice");
+  if (positionsElement2){
+  positionsElement2.innerHTML = afficherPrixTotal;
+  }
+}
+
+//---------------------------------------------------FIN CALCUL SOUS TOTAL-------------------------------------------
+
+
+
+
+
+
+//----------------------------------------------------AFFICHAGE DES PRODUITS + PANIER VIDE-----------------------------
+
+
+function emptyCart (){
+  const paniervide = `
+    <div class = "containerPanierVide">
+        <div>LE PANIER EST VIDE</div>
+        <a href="index.html">Retourner à la boutique</a>
+    </div>
+    `;
+  let tableau = document.querySelector(".tableau");
+  tableau.innerHTML = paniervide;
+  let totalPrice = document.querySelector(".totalprice");
+  totalPrice.style.display = 'none';
+}
+function cart (){
+  let totalPrice = document.querySelector(".totalprice");
+  totalPrice.style.display = 'block';
+  let structureProduitPanier = [];
+  for (j = 0; j < produits.length; j++) {
+    structureProduitPanier = structureProduitPanier + `
+           <tr>
+               <td class="divNomCouleur">${produits[j].name}</td>
+               <td class="coloris">${produits[j].selectedColor}</td>
+               <td class="quantity">${produits[j].quantity}</td>
+               <td class="prix">${formatPrix(produits[j].price)}</td>
+               <td class="soustotal">${formatPrix(produits[j].price*produits[j].quantity)}</td>
+               <td ><button class='delete btn btn-danger' id=${j}><i class="far fa-trash-alt"></i></button></td> <!-- On passe la position du produit dans le tableau de produits afin de l'utiliser pour supprimer le produit -->
+           </tr>`;
+ }
+positionsElement.innerHTML = structureProduitPanier;
+}
+
+function affichage (){
+  if (!produits || produits.length === 0) {
+    emptyCart();
+  }
+  else {
+    cart();
+    totalProduit();
+  };
+}
+
+
+
+
+
+//-----------------------------------VIDER LE PANIER-------------------------------------------------
+function viderPanier (){
+  let btn_viderPanier = document.querySelector(".paniervide");
+//suppression de la key produit du localstorage
+btn_viderPanier.addEventListener("click", (e) => {
+  e.preventDefault();
+  localStorage.removeItem("produits");
+  alert("Le panier a été vidé");
+  reload();
+});
+}
+viderPanier();
+
+
+//-----------------------------------------FORMULAIRE-------------------------------------------------
+function validateForm (){
   let isValidName = validateName();
   let isValidSurname = validateSurname();
   let isValidEmail = validerEmail();
@@ -120,26 +137,14 @@ btn_envoyerleformulaire.addEventListener("click",function (e) {
   let isValidCP = validateCP();
   let isValidCity = validateCity();
   // Bloquer le POST si les éléments ne sont pas bons
-  if (!isValidName || !isValidSurname || !isValidEmail || !isValidAddress || !isValidCP || !isValidCity || produits.lenght<=0 ){
-    return ;
+  if (!isValidName || !isValidSurname || !isValidEmail || !isValidAddress || !isValidCP || !isValidCity || produits.length<=0 ){
+    return false;
   }
-  
+  return true;
+}
 
-const leformulaire = {
-        lastName: document.querySelector("#votrenom").value,
-        firstName: document.querySelector("#prenom").value,
-        email: document.querySelector("#email").value,
-        address: document.querySelector("#adresse").value,
-        code_postal: document.querySelector("#cp").value,
-        city: document.querySelector("#ville").value,
-      };
-//Envoi du formulaire --------------------------------------------------------------------------------
-  const dataOrder = {
-    contact: leformulaire,
-    products : produits.map(produit => produit._id),
-  }
-// Requête POST
-fetch('http://localhost:3000/api/teddies/order',{
+function send (dataOrder){
+  fetch('http://localhost:3000/api/teddies/order',{
     headers : {
       'Accept' : 'application/json',
       'Content-Type' :  'application/json'
@@ -156,9 +161,43 @@ fetch('http://localhost:3000/api/teddies/order',{
     window.localStorage.clear();
     window.location.assign('validation.html');
   }).catch(error => {
+    console.log(error);
   });
-// fin envoi du formulaire ---------------------------------------
+}
+
+
+function getData (){
+  const leformulaire = {
+    lastName: document.querySelector("#votrenom").value,
+    firstName: document.querySelector("#prenom").value,
+    email: document.querySelector("#email").value,
+    address: document.querySelector("#adresse").value,
+    code_postal: document.querySelector("#cp").value,
+    city: document.querySelector("#ville").value,
+  };
+//Données du formulaire --------------------------------------------------------------------------------
+    const dataOrder = {
+    contact: leformulaire,
+    products : produits.map(produit => produit._id),
+    }
+    return dataOrder;
+}
+function sendButton (){
+  let btn_envoyerleformulaire = document.querySelector(".bouton_commande");
+btn_envoyerleformulaire.addEventListener("click",function (e) {
+  e.preventDefault(); 
+
+    if (!validateForm ()){
+      
+      return;
+    }
+
+let dataOrder = getData();
+send(dataOrder);
 });
+}
+
+
 //fin formulaire------------------------------------------------------------------------------------------------
 
 
@@ -288,4 +327,7 @@ function deleteProduct (){
   })
   })
 }
+affichage();
+sendButton();
 deleteProduct();
+

@@ -10,10 +10,9 @@ async function oneProduct () {
 } 
 oneProduct();
 
-function maPeluche(data) {
+function maPeluche(data) { //fct permet d'afficher le produit
   let container = document.querySelector(".container");
 //Création des éléments et Assignation à leur parents
-
   let img = imgPeluche(data);
   container.appendChild(img);
 //Informations globales-------------------------------------------------------------------------------------------
@@ -40,10 +39,6 @@ function maPeluche(data) {
   alerte.id = "alerte";
   info_produit.appendChild(colorMenu);
   info_produit.appendChild(alerte);
-// Création du choix par défaut
-  
-
-  
 //Quantité du produit-------------------------------------------------------------------------------------------
   let choixQuantite = document.createElement('input');
   choixQuantite.type = 'number';
@@ -54,7 +49,6 @@ function maPeluche(data) {
 //Bouton ajouter au panier-------------------------------------------------------------------------------------------
   let button = buttonProduct(data);
   info_produit.appendChild(button);
-
 }
 function imgPeluche (data){
   let img = document.createElement("img");
