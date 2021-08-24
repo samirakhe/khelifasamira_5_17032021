@@ -64,7 +64,7 @@ function colorPeluche (data){
   let colorMenu = document.createElement("select"); 
   colorMenu.classList.add("colorMenu");
   let optionDefaut = document.createElement("option"); 
-  optionDefaut.innerText = "Couleurs disponibles";
+  optionDefaut.innerText = "Options";
   optionDefaut.value = ""; //aucune value pour un résultat null à la sélection
   colorMenu.appendChild(optionDefaut);
   for (let i = 0; i < data.colors.length; i += 1) {

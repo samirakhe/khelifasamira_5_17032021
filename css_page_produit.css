@@ -112,12 +112,13 @@ h3
     font-size: 25px;
     font-weight: bolder;
 }
-.colorMenu
-{
-    font-size: 15px;
-    border: solid 2px #c37865;
+.colorMenu {
+    border: solid 2px #eae7e7;
     font-family: 'montserrat_alternatesregular';
     padding: 7px;
+    background-color: white;
+    width: 30%;
+    font-size: 14px;
 }
 .quantite
 {

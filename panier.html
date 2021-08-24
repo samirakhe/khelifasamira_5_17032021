@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet"  href="css_panier.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/jpg" href="images/favicon.png"/>
+
+    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">-->
     <script src="https://kit.fontawesome.com/0c2033016f.js" crossorigin="anonymous"></script>
     <title>Orinoco</title>
 </head>
@@ -28,6 +30,7 @@
 <!--SECTION-->
 <section>
 <h1>Votre Panier</h1>
+<!--
 <div class="table-responsive">
 <table class="table tableau align-middle">
     <thead>
@@ -45,11 +48,28 @@
   </table>
   </div>
 
-<!--
-<table class="tableau containerProduitsPanier">
+
+
+<div class="tableau">
+    <div class="thead">
+        <p>Produits</p>
+        <p>Options</p>
+        <p>Quantité</p>
+        <p>Prix Unitaire</p>
+        <p class="sous-total">Sous-Total</p>
+        <p >Supprimer<p>    
+    </div>
+    <div class="tbody"></div>
+   
+</div>
+</section>
+
+
+
+<table class="tableau">
     <thead>
         <tr>
-            <th class ="containerProduitsPanier">Produits</th>
+            <th>Produits</th>
             <th>Options</th>
             <th>Quantité</th>
             <th>Prix Unitaire</th>
@@ -63,6 +83,32 @@
     
 </table>-->
 
+
+
+<table>
+    <caption>Récapitulatif de votre commande</caption>
+    <thead>
+      <tr>
+        <th scope="col">Produit</th>
+        <th scope="col">Options</th>
+        <th scope="col">Quantité</th>
+        <th scope="col">Prix Unitaire</th>
+        <th scope="col">Sous-total</th>
+        <th scope="col">Supprimer</th>
+      </tr>
+    </thead>
+    <tbody class="tbody">
+      <tr>
+        <td data-label="Produit">Produit</td>
+        <td data-label="Options">Options</td>
+        <td data-label="Quantité">Quantité</td>
+        <td data-label="Prix Unitaire">Prix Unitaire</td>
+        <td data-label="Sous-Total">Sous-total</td>
+        <td data-label="Supprimer">Supprimer</td>
+      </tr>
+      
+    </tbody>
+  </table>
 <div class="totalprice"></div>
 
 <button class="paniervide">Vider le Panier</button>
@@ -98,7 +144,9 @@
             <button name ="valider_la_commande" type="submit" class="bouton_commande" onclick="validerEmail();"> Valider la commande et Payer</button>
         </form>
 </div>
-</section>
+
+
+
 <!--FIN SECTION-->
 
 
