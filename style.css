@@ -24,12 +24,7 @@ body
     min-width: 769px;
 	margin:auto;
 }
-@media screen and (max-width: 768px)
-{
-    .bloc_page{
-        max-width: 768px;
-    }
-}
+
 
 header, footer
 {
@@ -149,6 +144,9 @@ button:hover
 }
 @media screen and (max-width: 768px)
 {
+    .bloc_page{
+        max-width: 768px;
+    }
     .menu_footer{
     flex-direction: column;
     text-align: center;

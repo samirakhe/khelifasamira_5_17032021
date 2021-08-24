@@ -18,11 +18,10 @@ body
     font-family: 'montserrat_alternatesregular';
     font-weight: bold;
 }
-.bloc_page
-{
+.bloc_page {
     min-width: 769px;
-	margin:auto;
-}
+    margin: auto;
+  }
 header, footer
 {
     background-color:#f3e9f1;
@@ -157,10 +156,10 @@ button:hover
 
 
 
-@media screen and (max-width: 1200px)
+@media screen and (max-width: 768px)
 {
     .bloc_page{
-        max-width: 1200px;
+        max-width: 768px;
     }
     .peluche
 {

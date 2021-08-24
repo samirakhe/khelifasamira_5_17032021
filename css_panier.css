@@ -18,7 +18,7 @@ body {
   font-weight: bold;
 }
 .bloc_page {
-  max-width: 1440px;
+  min-width: 769px;
   margin: auto;
 }
 header, footer {
@@ -48,6 +48,7 @@ header, footer {
 }
 .tableau {
   width: 70%;
+  margin-top: 50px;
 }
 table {
   border-collapse: collapse;
@@ -69,10 +70,9 @@ table {
   color: #bd7479;
 }
 .validation {
-  width: 90%;
+  width: 45%;
   margin: 70px auto;
   border: solid 1px black;
-  width: 45%;
   padding: 15px;
 }
 td, th {
@@ -104,8 +104,7 @@ form {
 h1 {
   text-align: center;
   font-family: "wurmics_bravuraregular";
-  font-size: 25px;
-  font-size: 45px;
+  font-size: 35px;
   text-decoration: underline;
 }
 h3 {
@@ -118,7 +117,8 @@ h3 {
 }
 .bouton_commande, .delete  {
   font-family: "montserrat_alternatesregular";
-  background-color: white;
+  background-color:#c37865;
+  color:white;
   font-size: 17px;
   padding: 10px 15px;
   border: solid 2px #c37865;
@@ -173,7 +173,11 @@ button:hover {
 
 
 
-@media screen and (max-width: 1200px){
+@media screen and (max-width: 768px){
+  
+  .bloc_page{
+    max-width: 768px;
+  }
 
   .totalprice{
     width: 60%;
@@ -185,89 +189,5 @@ button:hover {
   {
     flex-direction: column;
     text-align: center;
-  }
-}
-
-
-
-
-table {
-  border: 1px solid #ccc;
-  border-collapse: collapse;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  table-layout: fixed;
-}
-
-table caption {
-  font-size: 1.5em;
-  margin: .5em 0 .75em;
-}
-
-table tr {
-  background-color: #f8f8f8;
-  border: 1px solid #ddd;
-  padding: .35em;
-}
-
-table th,
-table td {
-  padding: .625em;
-  text-align: center;
-}
-
-table th {
-  font-size: .85em;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-}
-
-@media screen and (max-width: 600px) {
-  table {
-    border: 0;
-  }
-
-  table caption {
-    font-size: 1.3em;
-  }
-  
-  table thead {
-    border: none;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-  }
-  
-  table tr {
-    border-bottom: 3px solid #ddd;
-    display: block;
-    margin-bottom: .625em;
-  }
-  
-  table td {
-    border-bottom: 1px solid #ddd;
-    display: block;
-    font-size: .8em;
-    text-align: right;
-  }
-  
-  table td::before {
-    /*
-    * aria-label has no advantage, it won't be read inside a table
-    
-    */
-    
-  
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  
-  table td:last-child {
-    border-bottom: 0;
   }
 }
