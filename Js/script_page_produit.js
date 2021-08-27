@@ -1,7 +1,7 @@
 //Récupération de la chaine de requête
 const queryString_url_id = window.location.search; // Propriété contenant l'URL du document
 const IdPeluche = queryString_url_id.slice(4); //Permet d'isoler l'id sans le préfixe
-
+//Récupération des données du produit à l'aide de son identifiant------------------------------------------------
 async function oneProduct () {
   const response = await fetch(`http://localhost:3000/api/teddies/${IdPeluche}`);//Récupération des données de chaque produit avec un identifiant
   let data = await response.json();
@@ -9,8 +9,8 @@ async function oneProduct () {
   maPeluche(data);//on appelle la fonction de construction mapeluche et on y place data
 } 
 oneProduct();
-
-function maPeluche(data) { //fct permet d'afficher le produit
+//Fonction permettant d'afficher le produit sur la page---------------------------------------
+function maPeluche(data) { 
   let container = document.querySelector(".container");
   let img = imgPeluche(data);
   container.appendChild(img);
@@ -50,7 +50,7 @@ function maPeluche(data) { //fct permet d'afficher le produit
   info_produit.appendChild(button);
 }
 
-
+//Fonction permettant de créer l'image du produit et de lui attribuer
 function imgPeluche (data){
   let img = document.createElement("img");
   img.src = data.imageUrl;
@@ -59,7 +59,7 @@ function imgPeluche (data){
   return img;
 }
 
-
+//Fonction permettant la création du menu déroulant contenant les couleurs du produit
 function colorPeluche (data){
   let colorMenu = document.createElement("select"); 
   colorMenu.classList.add("colorMenu");
@@ -84,7 +84,7 @@ function colorPeluche (data){
   return colorMenu;
 }
 
-
+//Fonction permettant d'ajouter le produit au panier avec les options qui lui seront attribué
 function buttonProduct (data) {
   let colorMenu = document.querySelector('.colorMenu');
   let choixQuantite = document.querySelector('.quantite');
@@ -105,7 +105,7 @@ function buttonProduct (data) {
   return button;
 }
 
-
+//Fonction permettant de récupérer un élément dans le tableau afin de l'ajouter au panier, ou d'incrémenter sa quantité s'il existe déàjà dans le panier
 function addProduct(produit) {
   let datas = localStorage.getItem("produits");
   let panier = datas ? JSON.parse(datas) : []; //data? signie que si cette donnée est définie, converison en JSON. Sinon, affichage tableau vide.

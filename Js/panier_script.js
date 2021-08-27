@@ -8,7 +8,7 @@ let produits = JSON.parse(localStorage.getItem("produits"));
 if (!produits){
   produits = [];
 }
-//-----------------------------------------------------------------------------------------------------
+//Fonction permettant de resistuer les données récupérées dans la fonction reload -----------------------------------------------------------------------------------------------------
 function restore () {
   let contactSTR = localStorage.getItem('contact');
   if (contactSTR){
@@ -22,7 +22,7 @@ function restore () {
   }
 }
 restore();
-function reload (){
+function reload (){ //Fonction qui sauvegardera les données du formulaire dans le localStorage, et rechargera la page
   const leformulaire = {
     lastName: document.querySelector("#votrenom").value,
     firstName: document.querySelector("#prenom").value,
@@ -38,7 +38,7 @@ function reload (){
 
 
 //-------------------------------------------------CALCUL  TOTAL ---------------------------------------
-
+//Fonction permettant de calculer et d'afficher le sous-total puis le total du panier
 function totalProduit (){
   let sousTotalCalcul = [];
   for (m = 0; m < produits.length; m++) {
@@ -69,7 +69,7 @@ function totalProduit (){
 
 //----------------------------------------------------AFFICHAGE DES PRODUITS + PANIER VIDE-----------------------------
 
-
+//Fonction permettant d'afficher le message "panier vide" et supprime l'encart du prix total
 function emptyCart (){
   const paniervide = `
     <div class = "containerPanierVide">
@@ -81,7 +81,7 @@ function emptyCart (){
   tableau.innerHTML = paniervide;
   let totalPrice = document.querySelector(".totalprice");
   totalPrice.style.display = 'none';
-}
+}//Cart : Fonction permettant d'afficher les produits dans le panier ainsi que leur attributs et le total
 function cart (){
   let totalPrice = document.querySelector(".totalprice");
   totalPrice.style.display = 'block';
@@ -94,12 +94,12 @@ function cart (){
                <td class="quantity">${produits[j].quantity}</td>
                <td class="prix">${formatPrix(produits[j].price)}</td>
                <td class="soustotal">${formatPrix(produits[j].price*produits[j].quantity)}</td>
-               <td ><button class='delete btn btn-danger' id=${j}><i class="far fa-trash-alt"></i></button></td> <!-- On passe la position du produit dans le tableau de produits afin de l'utiliser pour supprimer le produit -->
+               <td ><button class='delete' id=${j}><i class="far fa-trash-alt"></i></button></td> <!-- On passe la position du produit dans le tableau de produits afin de l'utiliser pour supprimer le produit -->
            </tr>`;
  }
 positionsElement.innerHTML = structureProduitPanier;
 }
-
+// Condition si le panier est vide il affichera la fonction empty, s'il est rempli il affichera la fonction cart et le total du panier
 function affichage (){
   if (!produits || produits.length === 0) {
     emptyCart();
@@ -112,9 +112,9 @@ function affichage (){
 
 
 
-
-
 //-----------------------------------VIDER LE PANIER-------------------------------------------------
+
+//Fonction permettant de vider le panier grâce au bouton / Affichage d'un message alerte
 function viderPanier (){
   let btn_viderPanier = document.querySelector(".paniervide");
 //suppression de la key produit du localstorage
@@ -127,8 +127,8 @@ btn_viderPanier.addEventListener("click", (e) => {
 }
 viderPanier();
 
-
 //-----------------------------------------FORMULAIRE-------------------------------------------------
+//Fonction appelant les fonctions de validation des champs du formulaire
 function validateForm (){
   let isValidName = validateName();
   let isValidSurname = validateSurname();
@@ -142,7 +142,7 @@ function validateForm (){
   }
   return true;
 }
-
+//Fonction permettant d'envoyer les données de la commande et redirige vers la page de validation / Le localStorage est vidé
 function send (dataOrder){
   fetch('http://localhost:3000/api/teddies/order',{
     headers : {
@@ -164,7 +164,7 @@ function send (dataOrder){
   });
 }
 
-
+//Fonction permettant de récupérer les données du formulaire et tranforme le tableau products afin de n'avoir que les id
 function getData (){
   const leformulaire = {
     lastName: document.querySelector("#votrenom").value,
@@ -181,6 +181,7 @@ function getData (){
     }
     return dataOrder;
 }
+//Fonction permettant d'envoyer la commande si les champs sont conformes
 function sendButton (){
 let btn_envoyerleformulaire = document.querySelector(".bouton_commande");
 btn_envoyerleformulaire.addEventListener("click",function (e) {
@@ -200,7 +201,7 @@ send(dataOrder);
 //fin formulaire------------------------------------------------------------------------------------------------
 
 
-
+//Fonction de validation du champs / Affiche un message d'erreur en cas de non conformité
 function validateName() {
   let inputName = document.querySelector("#votrenom");
   let valueName = inputName.value;
@@ -220,7 +221,7 @@ function validateName() {
   errorName.style.display = "none";
   return true;
 }
-
+//Fonction de validation du champs / Affiche un message d'erreur en cas de non conformité
 function validateSurname() {
   let inputSurname = document.querySelector("#prenom");
   let valueSurname = inputSurname.value;
@@ -257,7 +258,7 @@ function validerEmail() {
     return true;
   }
 }
-
+//Fonction de validation du champs / Affiche un message d'erreur en cas de non conformité
 function validateAdress() {
   let inputAdress = document.querySelector("#adresse");
   let valueAdress = inputAdress.value;
@@ -276,7 +277,7 @@ function validateAdress() {
   errorAdress.style.display = "none";
   return true;
 }
-
+//Fonction de validation du champs / Affiche un message d'erreur en cas de non conformité
 function validateCP() {
   let inputCP = document.querySelector("#cp");
   let valueCP = inputCP.value;
@@ -295,7 +296,7 @@ function validateCP() {
   errorCP.style.display = "none";
   return true;
 }
-
+//Fonction de validation du champs / Affiche un message d'erreur en cas de non conformité
 function validateCity() {
   let inputCity = document.querySelector("#ville");
   let valueCity = inputCity.value;
@@ -314,6 +315,7 @@ function validateCity() {
   errorCity.style.display = "none";
   return true;
 }
+//Fonction permettant de supprimer un seul produit en créant et retournant un nouveau tableau ne contenant pas le produit supprimé
 function deleteProduct (){
   let deleteButtons = document.querySelectorAll('.delete');
   deleteButtons.forEach ((buttonDelete)=>{
